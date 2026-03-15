@@ -252,11 +252,7 @@ const EquipeFrance = () => {
               <Button
                 variant="ghost"
                 className="mt-4"
-                onClick={() => {
-                  setSearch("");
-                  setCityFilter("all");
-                  setQualifFilter("all");
-                }}
+                onClick={() => setSearch("")}
               >
                 Réinitialiser les filtres
               </Button>
