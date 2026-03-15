@@ -57,12 +57,13 @@ const CityPage = () => {
   const city = cities.find(c => c.slug === slug);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (city) {
       document.title = city.title;
       const meta = document.querySelector('meta[name="description"]');
       if (meta) meta.setAttribute("content", city.metaDescription);
     }
-  }, [city]);
+  }, [city, slug]);
 
   if (!city) {
     return (
