@@ -318,35 +318,5 @@ const NosBiens = () => {
   );
 };
 
-const FilterGroup = ({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: readonly string[];
-  value: string;
-  onChange: (v: string) => void;
-}) => (
-  <div className="flex-1">
-    <p className="text-xs font-medium text-muted-foreground mb-2">{label}</p>
-    <div className="flex flex-wrap gap-2">
-      {options.map((opt) => (
-        <button
-          key={opt}
-          onClick={() => onChange(opt)}
-          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 border ${
-            value === opt
-              ? "bg-navy text-primary-foreground border-navy shadow-md"
-              : "bg-card text-foreground/70 border-border hover:border-navy/30 hover:text-navy"
-          }`}
-        >
-          {opt}
-        </button>
-      ))}
-    </div>
-  </div>
-);
 
 export default NosBiens;
