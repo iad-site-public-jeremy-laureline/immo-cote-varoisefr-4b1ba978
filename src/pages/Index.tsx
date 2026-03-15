@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Star, Home, Building, TreePine, Store, Globe } from "lucide-react";
+import jeremyImg from "@/assets/jeremy.png";
+import laurelineImg from "@/assets/laureline.png";
 import { toast } from "sonner";
 import heroImage from "@/assets/hero-coast.jpg";
 import sixFoursImg from "@/assets/six-fours.jpg";
