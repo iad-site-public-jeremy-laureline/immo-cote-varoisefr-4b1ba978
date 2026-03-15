@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
+  { label: "Nos biens", href: "/nos-biens" },
   { label: "Estimer mon bien", href: "/estimation" },
   { label: "Nos secteurs", href: "/#secteurs" },
   { label: "Notre équipe", href: "/notre-equipe" },
