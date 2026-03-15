@@ -228,9 +228,7 @@ const Index = () => {
               viewport={{ once: true }}
               className="bg-background rounded-xl p-6 shadow-card text-center"
             >
-              <div className="w-24 h-24 rounded-full bg-sand/20 mx-auto mb-4 flex items-center justify-center">
-                <span className="font-display text-3xl text-sand font-bold">J</span>
-              </div>
+              <img src={jeremyImg} alt="Jérémy Vieira" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top" />
               <h3 className="font-display text-xl font-semibold text-navy">Jérémy Vieira</h3>
               <p className="text-sm text-muted-foreground mt-1">Conseiller immobilier indépendant</p>
               <p className="text-sm text-muted-foreground">Six-Fours-les-Plages & environs</p>
