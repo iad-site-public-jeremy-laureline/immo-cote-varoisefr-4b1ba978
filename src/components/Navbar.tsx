@@ -63,21 +63,21 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
-      <nav className="container-narrow mx-auto flex h-[72px] items-center justify-between px-4 md:px-8">
-        {/* Logo — overflows below navbar for premium effect */}
+      <nav className="container-narrow mx-auto flex h-[80px] items-center justify-between px-4 md:px-8">
+        {/* Logo — integrated in navbar, slight overflow below */}
         <Link
           to="/"
           className="relative z-[60] flex-shrink-0 transition-opacity hover:opacity-90"
-          style={{ transform: "translateY(18px)" }}
         >
           <img
             src={scrolled || !isHome ? logoJL : logoJLWhite}
             alt="JL Immobilier Côte Varoise"
-            className="h-[110px] w-auto"
+            className="h-[100px] w-auto"
             style={{
+              transform: "translateY(10px)",
               filter: (scrolled || !isHome)
-                ? "drop-shadow(0 6px 16px rgba(27,46,75,0.15))"
-                : "drop-shadow(0 6px 16px rgba(0,0,0,0.35))",
+                ? "drop-shadow(0 4px 12px rgba(27,46,75,0.12))"
+                : "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
             }}
           />
         </Link>
