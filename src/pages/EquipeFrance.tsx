@@ -203,44 +203,15 @@ const EquipeFrance = () => {
       {/* Filters */}
       <section className="bg-background border-b border-border sticky top-[70px] z-40">
         <div className="container-narrow mx-auto px-4 md:px-8 py-4">
-          <div className="flex flex-col md:flex-row gap-3">
-            {/* Search */}
-            <div className="relative flex-1">
+          <div className="relative flex-1">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Rechercher par nom…"
+                placeholder="Rechercher par nom, ville ou code postal…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-9"
               />
             </div>
-
-            {/* City filter */}
-            <Select value={cityFilter} onValueChange={setCityFilter}>
-              <SelectTrigger className="md:w-[200px]">
-                <SelectValue placeholder="Ville" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Toutes les villes</SelectItem>
-                {cities.map((c) => (
-                  <SelectItem key={c} value={c}>{c}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            {/* Qualification filter */}
-            <Select value={qualifFilter} onValueChange={setQualifFilter}>
-              <SelectTrigger className="md:w-[220px]">
-                <SelectValue placeholder="Qualification" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Toutes les qualifications</SelectItem>
-                {qualifications.map((q) => (
-                  <SelectItem key={q} value={q}>{q}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
         </div>
       </section>
 
