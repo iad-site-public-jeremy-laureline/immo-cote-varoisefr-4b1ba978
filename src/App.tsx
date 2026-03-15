@@ -10,6 +10,7 @@ import Estimation from "./pages/Estimation.tsx";
 import CityPage from "./pages/CityPage.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotreEquipe from "./pages/NotreEquipe.tsx";
+import NosBiens from "./pages/NosBiens.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
