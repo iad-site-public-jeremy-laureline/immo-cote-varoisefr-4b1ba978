@@ -6,7 +6,7 @@ import { properties } from "@/data/properties";
 
 const cities = ["Tous", "Toulon", "Sanary-sur-Mer", "Six-Fours-les-Plages", "La Seyne-sur-Mer", "La Garde"] as const;
 const types = ["Tous", "Appartement", "Maison", "Terrain", "Local commercial"] as const;
-const conseillers = ["Tous", "Jérémy", "Laureline"] as const;
+
 
 const typeMap: Record<string, string> = {
   "Local commercial": "Local",
