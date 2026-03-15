@@ -15,7 +15,7 @@ const fadeUp = {
 
 const NotreEquipe = () => {
   useEffect(() => {
-    document.title = "Jérémy Vieira & Laureline Lohéac — Vos conseillers immobiliers indépendants";
+    document.title = "Jérémy Vieira et Laureline Lohéac — Vos conseillers immobiliers indépendants";
   }, []);
 
   return (
