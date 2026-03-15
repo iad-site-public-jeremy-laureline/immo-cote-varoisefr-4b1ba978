@@ -95,6 +95,22 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .parallax-section {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .parallax-section {
+      background-attachment: scroll;
+      background-size: cover;
+      background-position: center center;
+    }
+  }
 }
 
 @layer utilities {
