@@ -48,10 +48,9 @@ const NosBiens = () => {
       if (cityFilter !== "Tous" && p.city !== cityFilter) return false;
       const mappedType = typeMap[typeFilter] || typeFilter;
       if (typeFilter !== "Tous" && p.type !== mappedType) return false;
-      if (conseillerFilter !== "Tous" && p.conseiller !== conseillerFilter) return false;
       return true;
     });
-  }, [cityFilter, typeFilter, conseillerFilter]);
+  }, [cityFilter, typeFilter]);
 
   const activeFilters = [cityFilter, typeFilter, conseillerFilter].filter((f) => f !== "Tous").length;
 
