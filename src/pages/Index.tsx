@@ -189,7 +189,7 @@ const Index = () => {
           {heroSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => handleDotClick(index)}
               className={`w-2 h-2 rounded-full transition-all duration-500 ${
                 currentSlide === index
                   ? "bg-primary-foreground/90 w-6"
