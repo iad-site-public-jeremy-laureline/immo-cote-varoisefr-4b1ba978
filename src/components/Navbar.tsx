@@ -74,10 +74,10 @@ const Navbar = () => {
             alt="JL Immobilier Côte Varoise"
             className="h-[100px] w-auto"
             style={{
-              transform: "translateY(10px)",
+              transform: "translateY(12px)",
               filter: (scrolled || !isHome)
-                ? "drop-shadow(0 4px 12px rgba(27,46,75,0.12))"
-                : "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
+                ? "drop-shadow(0 6px 14px rgba(27,46,75,0.16))"
+                : "drop-shadow(0 6px 14px rgba(0,0,0,0.26))",
             }}
           />
         </Link>
