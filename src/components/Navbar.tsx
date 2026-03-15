@@ -54,8 +54,12 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
       <nav className="container-narrow mx-auto flex h-[70px] items-center justify-between px-4 md:px-8">
-        <Link to="/" className={`font-display text-lg md:text-xl font-semibold tracking-tight transition-colors ${logoColor}`}>
-          Jérémy & Laureline <span className="hidden sm:inline">· Immobilier</span>
+        <Link to="/" className="transition-opacity hover:opacity-80">
+          <img
+            src={scrolled || !isHome ? logoJL : logoJLWhite}
+            alt="JL Immobilier Côte Varoise"
+            className="h-[46px] w-auto"
+          />
         </Link>
 
         {/* Desktop nav */}
