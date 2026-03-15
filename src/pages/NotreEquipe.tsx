@@ -179,7 +179,7 @@ const NotreEquipe = () => {
             {[
               { icon: Clock, title: "Disponibles 7j/7", desc: "Joignables de 9h à 20h sans rendez-vous" },
               { icon: Award, title: "Expertise 15 ans", desc: "Transaction, négociation, valorisation locative" },
-              { icon: Languages, title: "Bilingues FR / EN", desc: "Clientèle française & étrangère bienvenue" },
+              { icon: Languages, title: "Bilingues FR / EN", desc: "Clientèle française et étrangère bienvenue" },
               { icon: Users, title: "Réseau national", desc: "140+ conseillers en réseau partout en France" },
             ].map((item, i) => (
               <motion.div

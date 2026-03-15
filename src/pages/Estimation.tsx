@@ -11,7 +11,7 @@ const benefits = [
 
 const Estimation = () => {
   useEffect(() => {
-    document.title = "Estimation Immobilière Gratuite sur la Côte Varoise | Jérémy & Laureline";
+    document.title = "Estimation Immobilière Gratuite sur la Côte Varoise | Jérémy et Laureline";
   }, []);
 
   return (
