@@ -15,7 +15,7 @@ const fadeUp = {
 
 const NotreEquipe = () => {
   useEffect(() => {
-    document.title = "Jérémy Vieira & Laureline Lohéac — Vos conseillers immobiliers indépendants";
+    document.title = "Jérémy Vieira et Laureline Lohéac — Vos conseillers immobiliers indépendants";
   }, []);
 
   return (
@@ -28,7 +28,7 @@ const NotreEquipe = () => {
           <span className="text-primary-foreground/60">Notre équipe</span>
         </nav>
         <motion.h1 {...fadeUp} className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-3">
-          Jérémy Vieira & Laureline Lohéac
+          Jérémy Vieira et Laureline Lohéac
         </motion.h1>
         <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="text-sand text-base md:text-lg font-body font-light max-w-xl">
           Vos conseillers immobiliers indépendants sur la Côte Varoise
@@ -179,7 +179,7 @@ const NotreEquipe = () => {
             {[
               { icon: Clock, title: "Disponibles 7j/7", desc: "Joignables de 9h à 20h sans rendez-vous" },
               { icon: Award, title: "Expertise 15 ans", desc: "Transaction, négociation, valorisation locative" },
-              { icon: Languages, title: "Bilingues FR / EN", desc: "Clientèle française & étrangère bienvenue" },
+              { icon: Languages, title: "Bilingues FR / EN", desc: "Clientèle française et étrangère bienvenue" },
               { icon: Users, title: "Réseau national", desc: "140+ conseillers en réseau partout en France" },
             ].map((item, i) => (
               <motion.div

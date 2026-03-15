@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 const Contact = () => {
   useEffect(() => {
-    document.title = "Nous contacter | Jérémy & Laureline Immobilier";
+    document.title = "Nous contacter | Jérémy et Laureline Immobilier";
   }, []);
 
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", message: "" });

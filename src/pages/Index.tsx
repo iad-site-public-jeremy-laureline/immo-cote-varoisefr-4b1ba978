@@ -77,7 +77,7 @@ const Index = () => {
   const [heroForm, setHeroForm] = useState({ typeBien: "", ville: "", prenom: "", telephone: "" });
 
   useEffect(() => {
-    document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy & Laureline";
+    document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy et Laureline";
   }, []);
 
   const handleHeroSubmit = (e: React.FormEvent) => {

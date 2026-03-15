@@ -28,7 +28,7 @@ const NosBiens = () => {
   const [conseillerFilter, setConseillerFilter] = useState("Tous");
 
   useEffect(() => {
-    document.title = "Nos Biens Disponibles — Jérémy & Laureline Immobilier";
+    document.title = "Nos Biens Disponibles — Jérémy et Laureline Immobilier";
   }, []);
 
   const filtered = useMemo(() => {
