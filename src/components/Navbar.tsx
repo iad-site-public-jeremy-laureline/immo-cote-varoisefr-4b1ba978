@@ -63,17 +63,23 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
-      <nav className="container-narrow mx-auto flex h-[70px] items-center justify-between px-4 md:px-8">
-        <Link to="/" className="transition-opacity hover:opacity-80">
+      <nav className="container-narrow mx-auto flex h-[72px] items-center justify-between px-4 md:px-8">
+        {/* Logo — allowed to overflow below navbar */}
+        <Link to="/" className="relative z-[60] transition-opacity hover:opacity-90 flex-shrink-0">
           <img
             src={scrolled || !isHome ? logoJL : logoJLWhite}
             alt="JL Immobilier Côte Varoise"
-            className="h-[46px] w-auto"
+            className="h-[110px] w-auto drop-shadow-lg"
+            style={{
+              filter: (scrolled || !isHome)
+                ? "drop-shadow(0 4px 12px rgba(27,46,75,0.12))"
+                : "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
+            }}
           />
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-6" ref={dropdownRef}>
+        <div className="hidden lg:flex items-center gap-7" ref={dropdownRef}>
           {navLinks.map((link) =>
             link.dropdown ? (
               <div key={link.label} className="relative">
@@ -90,14 +96,14 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
-                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-background rounded-lg shadow-card-hover border border-border py-2 min-w-[220px]"
+                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-background rounded-xl shadow-card-hover border border-border py-2 min-w-[220px]"
                     >
                       {getDropdownItems(link.dropdown!).map((s) => (
                         <Link
                           key={s.href}
                           to={s.href}
                           onClick={() => setOpenDropdown(null)}
-                          className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-sand transition-colors"
+                          className="block px-4 py-2.5 text-sm text-foreground hover:bg-sand-light hover:text-sand transition-colors"
                         >
                           {s.label}
                         </Link>
@@ -117,7 +123,7 @@ const Navbar = () => {
             )
           )}
           <Link to="/estimation">
-            <Button variant="sand" size="default" className="ml-2">
+            <Button variant="sand" size="default" className="ml-3 rounded-full px-6">
               Estimation gratuite
             </Button>
           </Link>
@@ -142,7 +148,7 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-background border-t border-border"
           >
-            <div className="flex flex-col p-4 gap-3">
+            <div className="flex flex-col p-5 gap-3">
               {navLinks.map((link) =>
                 link.dropdown ? (
                   <div key={link.label}>
@@ -152,7 +158,7 @@ const Navbar = () => {
                         <Link
                           key={s.href}
                           to={s.href}
-                          className="text-muted-foreground text-sm py-1 hover:text-sand transition-colors"
+                          className="text-muted-foreground text-sm py-1.5 hover:text-sand transition-colors"
                           onClick={() => setMobileOpen(false)}
                         >
                           {s.label}
@@ -172,7 +178,7 @@ const Navbar = () => {
                 )
               )}
               <Link to="/estimation" onClick={() => setMobileOpen(false)}>
-                <Button variant="sand" className="w-full mt-2">
+                <Button variant="sand" className="w-full mt-3 rounded-full text-base py-5">
                   Estimation gratuite
                 </Button>
               </Link>
