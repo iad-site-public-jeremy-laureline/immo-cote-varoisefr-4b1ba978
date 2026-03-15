@@ -194,19 +194,13 @@ const NosBiens = () => {
       {/* Property Grid */}
       <section className="py-12 md:py-16 bg-muted/20">
         <div className="container-narrow mx-auto px-4 md:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{filtered.length}</span> bien{filtered.length > 1 ? "s" : ""} trouvé{filtered.length > 1 ? "s" : ""}
-            </p>
-            {activeFilters > 0 && (
-              <button
-                onClick={() => { setCityFilter("Tous"); setTypeFilter("Tous"); setConseillerFilter("Tous"); }}
-                className="text-xs text-sand hover:text-sand-hover font-medium transition-colors"
-              >
-                Réinitialiser les filtres
-              </button>
-            )}
-          </div>
+          {activeFilters === 0 && (
+            <div className="mb-8">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">{filtered.length}</span> bien{filtered.length > 1 ? "s" : ""} disponible{filtered.length > 1 ? "s" : ""}
+              </p>
+            </div>
+          )}
 
           {filtered.length === 0 ? (
             <motion.div
