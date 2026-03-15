@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 
 // ⚠️ Replace with your Google Apps Script API URL
-const API_URL = "https://script.google.com/macros/s/AKfycbwJNP2MhP-EVkySfmqwlIGT-iojklmMxTlJbeVSkVqaICLqI64A_AyhCTvioB0RT7o8/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxS_PObPQd3m8MgjVZtOgMRYiJjJroaab1sIk514Nty6dpjLyesI2idJWW245eHbbZ1/exec";
 
 interface TeamMember {
   id: string;
