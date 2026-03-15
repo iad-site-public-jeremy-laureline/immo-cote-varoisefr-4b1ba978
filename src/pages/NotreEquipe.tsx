@@ -90,8 +90,19 @@ const NotreEquipe = () => {
         </div>
       </section>
 
-      {/* Séparateur */}
-      <div className="h-[2px] bg-gray-light" />
+      {/* Séparateur + avis combinés */}
+      <div className="bg-background">
+        <div className="container-narrow mx-auto px-4 md:px-8">
+          <motion.div {...fadeUp} className="flex items-center justify-center gap-6 py-8">
+            <div className="h-[1px] flex-1 bg-border" />
+            <div className="bg-navy text-primary-foreground px-6 py-3 rounded-lg text-center shadow-sm">
+              <p className="text-lg font-semibold">⭐ 4,8 / 5</p>
+              <p className="text-xs text-primary-foreground/70 mt-0.5">176 avis clients vérifiés</p>
+            </div>
+            <div className="h-[1px] flex-1 bg-border" />
+          </motion.div>
+        </div>
+      </div>
 
       {/* SECTION 3 — Laureline (inversé) */}
       <section className="bg-background">
