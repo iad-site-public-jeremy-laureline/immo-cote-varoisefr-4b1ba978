@@ -170,26 +170,18 @@ const EquipeFrance = () => {
     fetchMembers();
   }, []);
 
-  const cities = useMemo(
-    () => [...new Set(members.map((m) => m.ville).filter(Boolean))].sort(),
-    [members]
-  );
-
-  const qualifications = useMemo(
-    () => [...new Set(members.map((m) => m.qualification).filter(Boolean))].sort(),
-    [members]
-  );
-
   const filtered = useMemo(() => {
+    if (!search) return members;
+    const q = search.toLowerCase().trim();
     return members.filter((m) => {
-      const matchSearch =
-        !search ||
-        `${m.prenom} ${m.nom}`.toLowerCase().includes(search.toLowerCase());
-      const matchCity = cityFilter === "all" || m.ville === cityFilter;
-      const matchQualif = qualifFilter === "all" || m.qualification === qualifFilter;
-      return matchSearch && matchCity && matchQualif;
+      return (
+        `${m.prenom} ${m.nom}`.toLowerCase().includes(q) ||
+        `${m.nom} ${m.prenom}`.toLowerCase().includes(q) ||
+        m.ville.toLowerCase().includes(q) ||
+        m.code_postal.includes(q)
+      );
     });
-  }, [members, search, cityFilter, qualifFilter]);
+  }, [members, search]);
 
   return (
     <div className="pt-[70px]">
