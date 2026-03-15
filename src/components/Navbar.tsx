@@ -54,12 +54,13 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
       <nav className="container-narrow mx-auto flex h-[70px] items-center justify-between px-4 md:px-8">
-        <Link to="/" className="transition-opacity hover:opacity-80">
+        <Link to="/" className="relative transition-opacity hover:opacity-80">
           <img
             src={scrolled || !isHome ? logoJL : logoJLWhite}
             alt="JL Immobilier Côte Varoise"
-            className="h-[46px] w-auto"
+            className="h-[90px] w-auto absolute top-1/2 -translate-y-1/2 drop-shadow-md"
           />
+          <div className="h-[46px] w-[90px]" aria-hidden="true" />
         </Link>
 
         {/* Desktop nav */}
