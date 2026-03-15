@@ -53,10 +53,11 @@ const EstimationForm = ({ variant = "inline" }: EstimationFormProps) => {
           <label className={labelClass}>Type de bien</label>
           <select name="typeBien" value={formData.typeBien} onChange={handleChange} required className={inputClass}>
             <option value="">Sélectionnez</option>
+            <option value="appartement">Appartement</option>
             <option value="maison">Maison</option>
             <option value="villa">Villa</option>
-            <option value="appartement">Appartement</option>
             <option value="terrain">Terrain</option>
+            <option value="local">Local commercial</option>
           </select>
         </div>
         <div>
@@ -77,7 +78,7 @@ const EstimationForm = ({ variant = "inline" }: EstimationFormProps) => {
         <textarea name="message" value={formData.message} onChange={handleChange} rows={3} className={inputClass} placeholder="Précisez votre projet..." />
       </div>
       <Button type="submit" variant="sand" size="lg" className="w-full text-base py-4">
-        Demander mon estimation gratuite
+        Estimer mon bien gratuitement →
       </Button>
       <p className="text-xs text-muted-foreground text-center">
         Vos données sont protégées — aucun engagement

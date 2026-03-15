@@ -6,12 +6,12 @@ import EstimationForm from "@/components/EstimationForm";
 const benefits = [
   { icon: Shield, title: "Gratuit & sans engagement", desc: "Aucun frais, aucune obligation" },
   { icon: Clock, title: "Réponse sous 24h", desc: "Un conseiller vous contacte rapidement" },
-  { icon: MapPin, title: "Expertise locale", desc: "12 ans de connaissance du marché varois" },
+  { icon: MapPin, title: "Expertise locale", desc: "Plus de 15 ans de connaissance du marché varois" },
 ];
 
 const Estimation = () => {
   useEffect(() => {
-    document.title = "Estimation Immobilière Gratuite — Six-Fours, Sanary, Bandol | Jeremy & Laureline";
+    document.title = "Estimation Immobilière Gratuite sur la Côte Varoise | Jérémy & Laureline";
   }, []);
 
   return (
@@ -24,7 +24,7 @@ const Estimation = () => {
             className="text-center mb-8"
           >
             <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-4">
-              Estimation immobilière gratuite sur la Côte Varoise
+              Estimation Immobilière Gratuite sur la Côte Varoise
             </h1>
             <p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto">
               Vous envisagez de vendre votre bien à Six-Fours, Sanary, Bandol, Toulon ou dans les environs ? La première étape est d'en connaître la juste valeur. Notre estimation est gratuite, sans engagement, et réalisée par des experts qui connaissent le marché local dans le détail. Vous recevez notre avis de valeur sous 24 heures.

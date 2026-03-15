@@ -1,38 +1,41 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ExternalLink, Home, Ruler, LayoutGrid } from "lucide-react";
-import { properties, type PropertyType, type Conseiller } from "@/data/properties";
+import { ExternalLink, Home, Ruler, LayoutGrid, BedDouble } from "lucide-react";
+import { properties } from "@/data/properties";
 
-const cities = ["Toutes", "Toulon", "Sanary-sur-Mer", "Six-Fours", "La Seyne", "La Garde"] as const;
-const types = ["Tous", "Appartement", "Maison", "Terrain", "Local"] as const;
+const cities = ["Tous", "Toulon", "Sanary-sur-Mer", "Six-Fours-les-Plages", "La Seyne-sur-Mer", "La Garde"] as const;
+const types = ["Tous", "Appartement", "Maison", "Terrain", "Local commercial"] as const;
 const conseillers = ["Tous", "Jérémy", "Laureline"] as const;
 
-const statusColors: Record<string, string> = {
-  Nouveau: "bg-emerald-600 text-white border-emerald-600",
-  Exclusivité: "bg-gold text-navy border-gold",
-  "Sous compromis": "bg-muted text-muted-foreground border-muted",
+const typeMap: Record<string, string> = {
+  "Local commercial": "Local",
+};
+
+const statusStyles: Record<string, string> = {
+  Nouveau: "bg-[hsl(150,45%,35%)] text-primary-foreground border-transparent",
+  Exclusivité: "bg-sand text-navy border-transparent",
+  "Sous compromis": "bg-muted text-muted-foreground border-muted line-through",
 };
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(price);
 
 const NosBiens = () => {
-  const [cityFilter, setCityFilter] = useState("Toutes");
+  const [cityFilter, setCityFilter] = useState("Tous");
   const [typeFilter, setTypeFilter] = useState("Tous");
   const [conseillerFilter, setConseillerFilter] = useState("Tous");
 
   useEffect(() => {
-    document.title = "Nos Biens — Jeremy & Laureline Immobilier";
+    document.title = "Nos Biens Disponibles — Jérémy & Laureline Immobilier";
   }, []);
 
   const filtered = useMemo(() => {
     return properties.filter((p) => {
-      if (cityFilter !== "Toutes" && p.cityFilter !== cityFilter) return false;
-      if (typeFilter !== "Tous" && p.type !== typeFilter) return false;
+      if (cityFilter !== "Tous" && p.city !== cityFilter) return false;
+      const mappedType = typeMap[typeFilter] || typeFilter;
+      if (typeFilter !== "Tous" && p.type !== mappedType) return false;
       if (conseillerFilter !== "Tous" && p.conseiller !== conseillerFilter) return false;
       return true;
     });
@@ -48,11 +51,12 @@ const NosBiens = () => {
             animate={{ opacity: 1, y: 0 }}
             className="font-display text-3xl md:text-5xl font-bold mb-4"
           >
-            Nos biens à la vente
+            Nos biens disponibles à la vente
           </motion.h1>
           <p className="text-primary-foreground/70 max-w-xl mx-auto">
-            Découvrez notre sélection de biens immobiliers sur la côte varoise, accompagnés par Jérémy et Laureline.
+            Appartements, maisons, villas et terrains sur la Côte Varoise
           </p>
+          <p className="text-sand font-medium mt-3">{properties.length} biens disponibles</p>
         </div>
       </section>
 
@@ -88,30 +92,31 @@ const NosBiens = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <Card className="overflow-hidden group hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+                  <div className="bg-card rounded-lg border border-border overflow-hidden group hover:shadow-card-hover transition-shadow duration-300 h-full flex flex-col">
                     {/* Image */}
-                    <div className="relative aspect-[4/3] bg-muted overflow-hidden">
-                      <img
-                        src="/placeholder.svg"
-                        alt={`${property.label} — ${property.city}`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                    <div className="relative aspect-[4/3] bg-muted overflow-hidden flex items-center justify-center">
+                      <Home className="h-12 w-12 text-muted-foreground/30" />
                       {property.status && (
-                        <Badge className={`absolute top-3 left-3 ${statusColors[property.status]} text-xs`}>
+                        <Badge className={`absolute top-3 left-3 ${statusStyles[property.status]} text-xs uppercase tracking-wider`}>
                           {property.status}
                         </Badge>
                       )}
+                      {/* Conseiller badge */}
+                      <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-navy text-primary-foreground flex items-center justify-center text-xs font-bold">
+                        {property.conseiller[0]}
+                      </div>
                     </div>
 
-                    <CardContent className="p-5 flex flex-col flex-1">
-                      {/* Type & City */}
-                      <p className="text-xs font-medium text-gold uppercase tracking-wider mb-1">
-                        {property.type}
+                    <div className="p-5 flex flex-col flex-1">
+                      {/* Price */}
+                      <p className="font-display text-2xl font-bold text-navy mb-2">
+                        {formatPrice(property.price)}
                       </p>
-                      <h3 className="font-display text-lg font-semibold text-navy leading-tight mb-1">
-                        {property.label}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-3">{property.city}</p>
+
+                      {/* Type & City */}
+                      <p className="text-sm text-foreground/80 mb-3">
+                        {property.type} · {property.city}
+                      </p>
 
                       {/* Details */}
                       <div className="flex items-center gap-4 text-sm text-foreground/70 mb-4">
@@ -119,44 +124,36 @@ const NosBiens = () => {
                           <Ruler className="h-3.5 w-3.5" />
                           {property.surface}
                         </span>
-                        {property.terrain && (
-                          <span className="text-xs text-muted-foreground">
-                            Terrain {property.terrain}
-                          </span>
-                        )}
                         {property.rooms && (
                           <span className="flex items-center gap-1">
                             <LayoutGrid className="h-3.5 w-3.5" />
                             {property.rooms}p
                           </span>
                         )}
+                        {property.bedrooms && (
+                          <span className="flex items-center gap-1">
+                            <BedDouble className="h-3.5 w-3.5" />
+                            {property.bedrooms}ch
+                          </span>
+                        )}
                       </div>
-
-                      {/* Price */}
-                      <p className="text-xl font-bold text-navy mb-4">
-                        {formatPrice(property.price)}
-                      </p>
+                      {property.terrain && (
+                        <p className="text-xs text-muted-foreground mb-4">
+                          Terrain {property.terrain}
+                        </p>
+                      )}
 
                       <div className="mt-auto flex items-center justify-between">
-                        {/* Conseiller */}
-                        <div className="flex items-center gap-2">
-                          <Avatar className="h-7 w-7">
-                            <AvatarFallback className="text-xs bg-navy/10 text-navy">
-                              {property.conseiller[0]}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="text-xs text-muted-foreground">{property.conseiller}</span>
-                        </div>
-
+                        <span className="text-xs text-muted-foreground">{property.conseiller}</span>
                         <a href={property.link} target="_blank" rel="noopener noreferrer">
                           <Button variant="sand" size="sm" className="gap-1.5">
-                            Voir l'annonce
+                            Voir l'annonce →
                             <ExternalLink className="h-3.5 w-3.5" />
                           </Button>
                         </a>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
