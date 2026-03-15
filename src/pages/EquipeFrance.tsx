@@ -19,8 +19,10 @@ interface RawMember {
   "Téléphone mobile": number;
   Niveau: number;
   Qualification: string;
-  "Secteur d'activité (code postal)": number;
-  "Secteur d'activité (ville)": string;
+  "Secteur d'activité (code postal)"?: number;
+  "Secteur d’activité (code postal)"?: number;
+  "Secteur d'activité (ville)"?: string;
+  "Secteur d’activité (ville)"?: string;
   "Date d'activation": string;
   "Photo de profil": string;
   "Mini site iad": string;
@@ -51,8 +53,8 @@ const mapRawMember = (raw: RawMember): TeamMember => ({
   telephone: raw["Téléphone mobile"] ? `0${String(raw["Téléphone mobile"]).replace(/^33/, "")}` : "",
   niveau: String(raw.Niveau || ""),
   qualification: raw.Qualification || "",
-  code_postal: String(raw["Secteur d'activité (code postal)"] || ""),
-  ville: raw["Secteur d'activité (ville)"] || "",
+  code_postal: String(raw["Secteur d’activité (code postal)"] ?? raw["Secteur d'activité (code postal)"] ?? ""),
+  ville: raw["Secteur d’activité (ville)"] ?? raw["Secteur d'activité (ville)"] ?? "",
   date_activation: raw["Date d'activation"] || "",
   photo: raw["Photo de profil"] || "",
   minisite: raw["Mini site iad"] || "",
