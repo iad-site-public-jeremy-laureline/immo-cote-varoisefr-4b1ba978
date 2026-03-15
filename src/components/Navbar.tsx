@@ -15,11 +15,15 @@ const sectorLinks = [
   { label: "Ollioules", href: "/ollioules" },
 ];
 
+const teamLinks = [
+  { label: "Var", href: "/notre-equipe" },
+  { label: "France", href: "/equipe-france" },
+];
+
 const navLinks = [
   { label: "Nos biens", href: "/nos-biens" },
-  { label: "Nos secteurs", href: "#", dropdown: true },
-  { label: "Notre équipe", href: "/notre-equipe" },
-  { label: "Équipe France", href: "/equipe-france" },
+  { label: "Nos secteurs", href: "#", dropdown: "sectors" as const },
+  { label: "Notre équipe", href: "#", dropdown: "team" as const },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
