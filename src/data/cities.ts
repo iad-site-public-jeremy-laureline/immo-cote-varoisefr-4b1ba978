@@ -1,6 +1,7 @@
 export interface PriceSector {
   name: string;
   description: string;
+  image?: string; // optional photo per sector
 }
 
 export interface FaqItem {
@@ -32,6 +33,10 @@ export interface CityData {
   estimationTitle: string;
   estimationText: string;
   faq: FaqItem[];
+  /** Optional extra images for gallery & separators — to be provided later */
+  galleryImages?: string[];
+  separatorImage2?: string;
+  separatorImage3?: string;
 }
 
 export const cities: CityData[] = [
