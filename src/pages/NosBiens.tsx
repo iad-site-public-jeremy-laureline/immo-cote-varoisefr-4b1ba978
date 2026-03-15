@@ -37,7 +37,7 @@ const formatPrice = (price: number) =>
 const NosBiens = () => {
   const [cityFilter, setCityFilter] = useState("Tous");
   const [typeFilter, setTypeFilter] = useState("Tous");
-  const [conseillerFilter, setConseillerFilter] = useState("Tous");
+  
 
   useEffect(() => {
     document.title = "Nos Biens Disponibles — Jérémy et Laureline Immobilier";
