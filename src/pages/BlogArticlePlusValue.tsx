@@ -263,15 +263,15 @@ const BlogArticlePlusValue = () => {
                   </tr>
                   <tr className="border-t border-border bg-muted/30">
                     <td className="p-3 text-foreground/80">Après 22 ans</td>
-                    <td className="p-3 font-semibold text-green-700">100 % — IR exonéré</td>
+                    <td className="p-3 font-semibold text-sand">100 % — IR exonéré</td>
                     <td className="p-3 text-foreground/80">~72 %</td>
                     <td className="p-3 text-foreground/80">Seuls PS restants</td>
                   </tr>
                   <tr className="border-t border-border bg-sand-light">
                     <td className="p-3 font-semibold text-navy">Après 30 ans</td>
-                    <td className="p-3 font-semibold text-green-700">100 %</td>
-                    <td className="p-3 font-semibold text-green-700">100 %</td>
-                    <td className="p-3 font-bold text-green-700">EXONÉRATION TOTALE</td>
+                    <td className="p-3 font-semibold text-sand">100 %</td>
+                    <td className="p-3 font-semibold text-sand">100 %</td>
+                    <td className="p-3 font-bold text-sand">EXONÉRATION TOTALE</td>
                   </tr>
                 </tbody>
               </table>
