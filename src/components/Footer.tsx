@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logoJLWhite from "@/assets/logo-jl-white.png";
 
 const Footer = () => {
   return (
@@ -8,9 +9,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Col 1 — Identity */}
           <div>
-            <h3 className="font-display text-xl font-semibold mb-2">
-              Jérémy & Laureline
-            </h3>
+            <Link to="/">
+              <img src={logoJLWhite} alt="JL Immobilier Côte Varoise" className="h-16 w-auto mb-3" />
+            </Link>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
               Conseillers immobiliers indépendants · Côte Varoise
             </p>
