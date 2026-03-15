@@ -12,6 +12,7 @@ import Contact from "./pages/Contact.tsx";
 import NotreEquipe from "./pages/NotreEquipe.tsx";
 import NosBiens from "./pages/NosBiens.tsx";
 import Blog from "./pages/Blog.tsx";
+import BlogArticlePlusValue from "./pages/BlogArticlePlusValue.tsx";
 import EquipeFrance from "./pages/EquipeFrance.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
