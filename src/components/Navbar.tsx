@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoJL from "@/assets/logo-jl.png";
+import logoJLWhite from "@/assets/logo-jl-white.png";
 
 const sectorLinks = [
   { label: "Six-Fours-les-Plages", href: "/six-fours-les-plages" },
