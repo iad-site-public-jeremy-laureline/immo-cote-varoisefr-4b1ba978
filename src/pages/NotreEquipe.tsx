@@ -61,9 +61,7 @@ const NotreEquipe = () => {
               transition={{ delay: 0.1 }}
               className="bg-muted rounded-xl p-8 shadow-card text-left"
             >
-              <div className="w-20 h-20 rounded-full bg-sand/20 mb-4 flex items-center justify-center">
-                <span className="font-display text-3xl text-sand font-bold">L</span>
-              </div>
+              <img src={laurelineImg} alt="Laureline Lohéac" className="w-20 h-20 rounded-full mb-4 object-cover object-top" />
               <h2 className="font-display text-2xl font-bold text-navy">Laureline Lohéac</h2>
               <p className="text-sand font-medium text-sm mb-1">Conseillère immobilière indépendante</p>
               <p className="text-sm text-muted-foreground mb-3">Sanary-sur-Mer & environs</p>
