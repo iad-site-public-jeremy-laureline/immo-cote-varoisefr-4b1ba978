@@ -4,7 +4,7 @@ import { Shield, Clock, MapPin } from "lucide-react";
 import EstimationForm from "@/components/EstimationForm";
 
 const benefits = [
-  { icon: Shield, title: "Gratuit & sans engagement", desc: "Aucun frais, aucune obligation" },
+  { icon: Shield, title: "Gratuit et sans engagement", desc: "Aucun frais, aucune obligation" },
   { icon: Clock, title: "Réponse sous 24h", desc: "Un conseiller vous contacte rapidement" },
   { icon: MapPin, title: "Expertise locale", desc: "Plus de 15 ans de connaissance du marché varois" },
 ];
