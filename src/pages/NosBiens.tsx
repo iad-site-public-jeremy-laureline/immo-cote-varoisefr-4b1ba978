@@ -52,7 +52,7 @@ const NosBiens = () => {
     });
   }, [cityFilter, typeFilter]);
 
-  const activeFilters = [cityFilter, typeFilter, conseillerFilter].filter((f) => f !== "Tous").length;
+  const activeFilters = [cityFilter, typeFilter].filter((f) => f !== "Tous").length;
 
   return (
     <div className="pt-[70px]">
