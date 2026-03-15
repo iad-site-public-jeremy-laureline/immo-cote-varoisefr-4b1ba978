@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Star, Globe, Clock, Award, MapPin, Home, Users, Shield, Eye, Handshake, TrendingUp } from "lucide-react";
 import { properties } from "@/data/properties";
@@ -9,6 +9,10 @@ import laurelineImg from "@/assets/laureline.png";
 import heroImage from "@/assets/hero-coast.jpg";
 import parallaxVilla from "@/assets/parallax-villa.jpg";
 import parallaxAerial from "@/assets/parallax-aerial.jpg";
+import parallaxPort from "@/assets/parallax-port.jpg";
+import parallaxInterior from "@/assets/parallax-interior.jpg";
+
+const heroSlides = [heroImage, parallaxVilla, parallaxAerial, parallaxPort];
 import sixFoursImg from "@/assets/six-fours.jpg";
 import sanaryImg from "@/assets/sanary.jpg";
 import bandolImg from "@/assets/bandol.jpg";
@@ -74,8 +78,17 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(price);
 
 const Index = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   useEffect(() => {
     document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy et Laureline";
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
   const visibleProperties = properties.filter(p => p.status !== "Sous compromis").slice(0, 6);
@@ -84,7 +97,17 @@ const Index = () => {
     <div>
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-10">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }} />
+        {/* Slider background images */}
+        {heroSlides.map((slide, index) => (
+          <div
+            key={index}
+            className="absolute inset-0 bg-cover bg-center transition-opacity duration-[1500ms] ease-in-out"
+            style={{
+              backgroundImage: `url(${slide})`,
+              opacity: currentSlide === index ? 1 : 0,
+            }}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/80 via-navy/55 to-navy-deep/75" />
         <div className="relative z-10 text-center px-4 max-w-4xl w-full pt-20">
           <motion.h1
@@ -123,6 +146,21 @@ const Index = () => {
               </Button>
             </Link>
           </motion.div>
+        </div>
+        {/* Slide indicators */}
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2.5">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                currentSlide === index
+                  ? "bg-primary-foreground/90 w-6"
+                  : "bg-primary-foreground/35 hover:bg-primary-foreground/55"
+              }`}
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))}
         </div>
         <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute bottom-8 text-primary-foreground/50">
           <ChevronDown size={32} />
