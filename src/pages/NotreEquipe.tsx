@@ -46,9 +46,6 @@ const NotreEquipe = () => {
                 alt="Jérémy Vieira — Conseiller immobilier indépendant"
                 className="w-full h-[420px] md:h-full object-cover object-top shadow-[4px_0_24px_-4px_rgba(0,0,0,0.15)]"
               />
-              <div className="absolute bottom-4 left-4 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded text-xs font-medium text-navy shadow-sm">
-                ⭐ 4,8/5 · 45 avis clients
-              </div>
             </motion.div>
 
             {/* Bio */}
