@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Ruler, LayoutGrid, BedDouble, MapPin, TreePine, SlidersHorizontal } from "lucide-react";
+import { ExternalLink, Ruler, LayoutGrid, BedDouble, MapPin, TreePine, Search, X } from "lucide-react";
 import { properties } from "@/data/properties";
 
 const cities = ["Tous", "Toulon", "Sanary-sur-Mer", "Six-Fours-les-Plages", "La Seyne-sur-Mer", "La Garde"] as const;
