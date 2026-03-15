@@ -19,6 +19,7 @@ const navLinks = [
   { label: "Nos biens", href: "/nos-biens" },
   { label: "Nos secteurs", href: "#", dropdown: true },
   { label: "Notre équipe", href: "/notre-equipe" },
+  { label: "Équipe France", href: "/equipe-france" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
