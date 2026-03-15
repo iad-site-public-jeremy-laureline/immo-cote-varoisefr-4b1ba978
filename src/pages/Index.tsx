@@ -79,6 +79,8 @@ const formatPrice = (price: number) =>
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [nextSlide, setNextSlide] = useState<number | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy et Laureline";
@@ -86,10 +88,40 @@ const Index = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % heroSlides.length);
-    }, 7000);
+      const next = (currentSlide + 1) % heroSlides.length;
+      setNextSlide(next);
+      setTransitioning(false);
+      // Force reflow then start transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setTransitioning(true);
+        });
+      });
+      // After transition completes, swap
+      setTimeout(() => {
+        setCurrentSlide(next);
+        setNextSlide(null);
+        setTransitioning(false);
+      }, 3000);
+    }, 8000);
     return () => clearInterval(timer);
-  }, []);
+  }, [currentSlide]);
+
+  const handleDotClick = (index: number) => {
+    if (index === currentSlide) return;
+    setNextSlide(index);
+    setTransitioning(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTransitioning(true);
+      });
+    });
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setNextSlide(null);
+      setTransitioning(false);
+    }, 3000);
+  };
 
   const visibleProperties = properties.filter(p => p.status !== "Sous compromis").slice(0, 6);
 
@@ -97,17 +129,22 @@ const Index = () => {
     <div>
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-10">
-        {/* Slider background images */}
-        {heroSlides.map((slide, index) => (
+        {/* Current slide */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroSlides[currentSlide]})` }}
+        />
+        {/* Next slide fading in on top */}
+        {nextSlide !== null && (
           <div
-            key={index}
-            className="absolute inset-0 bg-cover bg-center transition-opacity duration-[5500ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+            className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url(${slide})`,
-              opacity: currentSlide === index ? 1 : 0,
+              backgroundImage: `url(${heroSlides[nextSlide]})`,
+              opacity: transitioning ? 1 : 0,
+              transition: 'opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1)',
             }}
           />
-        ))}
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/80 via-navy/55 to-navy-deep/75" />
         <div className="relative z-10 text-center px-4 max-w-4xl w-full pt-20">
           <motion.h1
@@ -152,7 +189,7 @@ const Index = () => {
           {heroSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => handleDotClick(index)}
               className={`w-2 h-2 rounded-full transition-all duration-500 ${
                 currentSlide === index
                   ? "bg-primary-foreground/90 w-6"
