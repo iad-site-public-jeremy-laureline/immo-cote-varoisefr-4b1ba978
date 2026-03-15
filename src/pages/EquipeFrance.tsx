@@ -10,6 +10,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 // ⚠️ Replace with your Google Apps Script API URL
 const API_URL = "https://script.google.com/macros/s/AKfycbxS_PObPQd3m8MgjVZtOgMRYiJjJroaab1sIk514Nty6dpjLyesI2idJWW245eHbbZ1/exec";
 
+interface RawMember {
+  ID: number;
+  Nom: string;
+  Prénom: string;
+  Filiale: string;
+  "E-mail professionnel": string;
+  "Téléphone mobile": number;
+  Niveau: number;
+  Qualification: string;
+  "Secteur d'activité (code postal)": number;
+  "Secteur d'activité (ville)": string;
+  "Date d'activation": string;
+  "Photo de profil": string;
+  "Mini site iad": string;
+}
+
 interface TeamMember {
   id: string;
   nom: string;
@@ -25,6 +41,22 @@ interface TeamMember {
   photo: string;
   minisite: string;
 }
+
+const mapRawMember = (raw: RawMember): TeamMember => ({
+  id: String(raw.ID),
+  nom: raw.Nom || "",
+  prenom: raw.Prénom || "",
+  filiale: raw.Filiale || "",
+  email: raw["E-mail professionnel"] || "",
+  telephone: raw["Téléphone mobile"] ? `0${String(raw["Téléphone mobile"]).replace(/^33/, "")}` : "",
+  niveau: String(raw.Niveau || ""),
+  qualification: raw.Qualification || "",
+  code_postal: String(raw["Secteur d'activité (code postal)"] || ""),
+  ville: raw["Secteur d'activité (ville)"] || "",
+  date_activation: raw["Date d'activation"] || "",
+  photo: raw["Photo de profil"] || "",
+  minisite: raw["Mini site iad"] || "",
+});
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -124,7 +156,8 @@ const EquipeFrance = () => {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Erreur de chargement");
         const data = await res.json();
-        setMembers(Array.isArray(data) ? data : data.data || []);
+        const rawList: RawMember[] = Array.isArray(data) ? data : data.data || [];
+        setMembers(rawList.map(mapRawMember));
       } catch (err) {
         setError("Impossible de charger l'équipe. Veuillez réessayer.");
         console.error(err);
