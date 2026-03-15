@@ -49,7 +49,13 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">{item.label}</p>
-                      <p className="font-medium text-navy">{item.value}</p>
+                      {item.href ? (
+                        <a href={item.href} className="font-medium text-navy hover:text-sand transition-colors">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="font-medium text-navy">{item.value}</p>
+                      )}
                     </div>
                   </div>
                 ))}
