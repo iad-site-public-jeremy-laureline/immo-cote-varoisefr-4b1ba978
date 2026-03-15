@@ -95,9 +95,16 @@ const NotreEquipe = () => {
         <div className="container-narrow mx-auto px-4 md:px-8">
           <motion.div {...fadeUp} className="flex items-center justify-center gap-6 py-8">
             <div className="h-[1px] flex-1 bg-border" />
-            <div className="bg-navy text-primary-foreground px-6 py-3 rounded-lg text-center shadow-sm">
-              <p className="text-lg font-semibold">⭐ 4,8 / 5</p>
-              <p className="text-xs text-primary-foreground/70 mt-0.5">176 avis clients vérifiés</p>
+            <div className="bg-navy text-primary-foreground px-8 py-4 rounded-lg text-center shadow-sm flex items-center gap-6">
+              <div>
+                <p className="text-lg font-semibold">⭐ 4,8 / 5</p>
+                <p className="text-xs text-primary-foreground/70 mt-0.5">176 avis clients vérifiés</p>
+              </div>
+              <div className="w-[1px] h-8 bg-primary-foreground/20" />
+              <div>
+                <p className="text-lg font-semibold">+ 500</p>
+                <p className="text-xs text-primary-foreground/70 mt-0.5">transactions réalisées</p>
+              </div>
             </div>
             <div className="h-[1px] flex-1 bg-border" />
           </motion.div>
