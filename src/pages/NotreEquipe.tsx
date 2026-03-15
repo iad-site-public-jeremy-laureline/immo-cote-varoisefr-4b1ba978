@@ -34,9 +34,7 @@ const NotreEquipe = () => {
               viewport={{ once: true }}
               className="bg-muted rounded-xl p-8 shadow-card text-left"
             >
-              <div className="w-20 h-20 rounded-full bg-sand/20 mb-4 flex items-center justify-center">
-                <span className="font-display text-3xl text-sand font-bold">J</span>
-              </div>
+              <img src={jeremyImg} alt="Jérémy Vieira" className="w-20 h-20 rounded-full mb-4 object-cover object-top" />
               <h2 className="font-display text-2xl font-bold text-navy">Jérémy Vieira</h2>
               <p className="text-sand font-medium text-sm mb-1">Conseiller immobilier indépendant</p>
               <p className="text-sm text-muted-foreground mb-3">Six-Fours-les-Plages & environs</p>
