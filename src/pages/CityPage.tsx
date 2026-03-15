@@ -19,12 +19,27 @@ const cityImages: Record<string, string> = {
   "ollioules": ollioulesImg,
 };
 
+/** Render bold text wrapped in ** */
+const renderText = (text: string) => {
+  const parts = text.split(/\*\*(.*?)\*\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <strong key={i} className="font-semibold text-navy">{part}</strong> : part
+  );
+};
+
+const otherCities = (currentSlug: string) =>
+  cities.filter(c => c.slug !== currentSlug);
+
 const CityPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const city = cities.find(c => c.slug === slug);
 
   useEffect(() => {
-    if (city) document.title = city.title;
+    if (city) {
+      document.title = city.title;
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute("content", city.metaDescription);
+    }
   }, [city]);
 
   if (!city) {
@@ -37,6 +52,7 @@ const CityPage = () => {
   }
 
   const image = cityImages[city.slug];
+  const others = otherCities(city.slug);
 
   return (
     <div className="pt-[70px]">
@@ -48,13 +64,13 @@ const CityPage = () => {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-display text-3xl md:text-5xl font-bold text-primary-foreground"
+            className="font-display text-3xl md:text-5xl font-bold text-primary-foreground max-w-3xl mx-auto"
           >
-            Immobilier à {city.name} — Estimation, Vente, Achat
+            {city.h1}
           </motion.h1>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="mt-6">
             <Link to="/estimation">
-              <Button variant="sand" size="lg">Estimer mon bien</Button>
+              <Button variant="sand" size="lg">Estimer mon bien gratuitement</Button>
             </Link>
           </motion.div>
         </div>
@@ -62,85 +78,172 @@ const CityPage = () => {
 
       {/* Intro */}
       <section className="section-padding bg-background">
-        <div className="container-narrow mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">
-            Le marché immobilier à {city.name}
-          </h2>
-          <p className="text-foreground/80 leading-relaxed">{city.intro}</p>
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <p className="text-foreground/80 leading-relaxed text-base md:text-lg">{city.intro}</p>
         </div>
       </section>
 
-      {/* Prices */}
+      {/* Market */}
       <section className="section-padding bg-muted">
-        <div className="container-narrow mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold text-navy mb-6">Prix au m² à {city.name}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 font-semibold text-navy">Type de bien</th>
-                  <th className="text-left py-3 px-4 font-semibold text-navy">Prix / m²</th>
-                  <th className="text-left py-3 px-4 font-semibold text-navy">Remarque</th>
-                </tr>
-              </thead>
-              <tbody>
-                {city.prices.map((p, i) => (
-                  <tr key={i} className="border-b border-border/50">
-                    <td className="py-3 px-4 text-foreground">{p.type}</td>
-                    <td className="py-3 px-4 font-semibold text-navy">{p.range}</td>
-                    <td className="py-3 px-4 text-muted-foreground">{p.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* Reasons */}
-      <section className="section-padding bg-background">
-        <div className="container-narrow mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold text-navy mb-6">Pourquoi investir à {city.name} ?</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {city.reasons.map((reason, i) => (
-              <div key={i} className="flex items-start gap-3 bg-muted rounded-lg p-4">
-                <span className="text-sand font-bold text-lg">✓</span>
-                <p className="text-foreground/80 text-sm">{reason}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="section-padding bg-muted">
-        <div className="container-narrow mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold text-navy mb-6">Questions fréquentes</h2>
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">{city.marketTitle}</h2>
           <div className="space-y-4">
-            {city.faq.map((item, i) => (
-              <div key={i} className="bg-background rounded-lg p-5 shadow-card">
-                <h3 className="font-semibold text-navy text-sm mb-2">{item.q}</h3>
-                <p className="text-foreground/70 text-sm">{item.a}</p>
+            {city.marketText.map((p, i) => (
+              <p key={i} className="text-foreground/80 leading-relaxed">{renderText(p)}</p>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link to="/estimation" className="text-sand font-semibold hover:underline">
+              Demandez votre estimation gratuite →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Prices by sector */}
+      <section className="section-padding bg-background">
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">{city.pricesTitle}</h2>
+          {city.pricesIntro && (
+            <p className="text-foreground/80 leading-relaxed mb-6">{city.pricesIntro}</p>
+          )}
+          <div className="space-y-4">
+            {city.priceSectors.map((sector, i) => (
+              <div key={i} className="bg-muted rounded-lg p-5 border-l-4 border-sand">
+                <h3 className="font-semibold text-navy mb-2">{sector.name}</h3>
+                <p className="text-foreground/70 text-sm leading-relaxed">{sector.description}</p>
               </div>
+            ))}
+          </div>
+          {city.pricesOutro && (
+            <p className="text-foreground/80 mt-6">
+              {city.pricesOutro}{" "}
+              <Link to="/estimation" className="text-sand font-semibold hover:underline">
+                Estimation gratuite →
+              </Link>
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* Photo placeholder - selling section image */}
+      <section className="relative h-[35vh] min-h-[250px] overflow-hidden">
+        <img src={image} alt={`Vendre à ${city.name}`} className="w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-navy/30" />
+      </section>
+
+      {/* Selling */}
+      <section className="section-padding bg-muted">
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">{city.sellingTitle}</h2>
+          <div className="space-y-4">
+            {city.sellingText.map((p, i) => (
+              <p key={i} className="text-foreground/80 leading-relaxed">{p}</p>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-sand-light text-center">
-        <div className="container-narrow mx-auto">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">
-            Estimez gratuitement votre bien à {city.name}
-          </h2>
-          <p className="text-foreground/70 mb-6 max-w-xl mx-auto">
-            Nos experts connaissent chaque quartier de {city.name}. Obtenez une estimation précise sous 24h.
-          </p>
+      {/* Buying */}
+      <section className="section-padding bg-background">
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">{city.buyingTitle}</h2>
+          <div className="space-y-4">
+            {city.buyingText.map((p, i) => (
+              <p key={i} className="text-foreground/80 leading-relaxed">{p}</p>
+            ))}
+          </div>
+          {/* Internal links to other cities */}
+          <div className="mt-6 p-4 bg-muted rounded-lg">
+            <p className="text-sm text-foreground/70">
+              Découvrez également nos analyses pour :{" "}
+              {others.map((c, i) => (
+                <span key={c.slug}>
+                  <Link to={`/${c.slug}`} className="text-sand font-medium hover:underline">{c.name}</Link>
+                  {i < others.length - 1 ? ", " : "."}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Invest section (La Seyne only) */}
+      {city.investTitle && city.investText && (
+        <section className="section-padding bg-muted">
+          <div className="max-w-3xl mx-auto px-4 md:px-8">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">{city.investTitle}</h2>
+            <div className="space-y-4">
+              {city.investText.map((p, i) => (
+                <p key={i} className="text-foreground/80 leading-relaxed">{p}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Expertise section (Sanary only) */}
+      {city.expertiseTitle && city.expertiseText && (
+        <section className="section-padding bg-background">
+          <div className="max-w-3xl mx-auto px-4 md:px-8">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">{city.expertiseTitle}</h2>
+            <div className="space-y-4">
+              {city.expertiseText.map((p, i) => (
+                <p key={i} className="text-foreground/80 leading-relaxed">{p}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Estimation CTA */}
+      <section className="section-padding bg-sand-light">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 text-center">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">{city.estimationTitle}</h2>
+          <p className="text-foreground/70 mb-6 leading-relaxed max-w-2xl mx-auto">{city.estimationText}</p>
           <Link to="/estimation">
             <Button variant="sand" size="lg" className="text-base px-8">
               Demander mon estimation gratuite
             </Button>
           </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding bg-muted">
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">
+            Foire aux questions — Immobilier à {city.name}
+          </h2>
+          <div className="space-y-4">
+            {city.faq.map((item, i) => (
+              <div key={i} className="bg-background rounded-lg p-5 shadow-card">
+                <h3 className="font-semibold text-navy text-sm mb-2">{item.q}</h3>
+                <p className="text-foreground/70 text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Other cities */}
+      <section className="section-padding bg-background">
+        <div className="max-w-3xl mx-auto px-4 md:px-8">
+          <h2 className="font-display text-xl font-bold text-navy mb-4">Nos autres secteurs</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {others.map(c => (
+              <Link
+                key={c.slug}
+                to={`/${c.slug}`}
+                className="bg-muted rounded-lg p-3 text-center hover:bg-sand/20 transition-colors group"
+              >
+                <div className="aspect-[4/3] rounded overflow-hidden mb-2">
+                  <img src={cityImages[c.slug]} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                </div>
+                <span className="text-sm font-medium text-navy">{c.name}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </div>
