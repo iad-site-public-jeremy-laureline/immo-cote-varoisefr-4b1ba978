@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Star, Globe } from "lucide-react";
+import jeremyImg from "@/assets/jeremy.png";
+import laurelineImg from "@/assets/laureline.png";
 
 const NotreEquipe = () => {
   useEffect(() => {
