@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Blog = () => {
   useEffect(() => {
-    document.title = "Actualités & Conseils Immobiliers sur la Côte Varoise | Jérémy & Laureline";
+    document.title = "Actualités et Conseils Immobiliers sur la Côte Varoise | Jérémy et Laureline";
   }, []);
 
   return (
@@ -15,7 +15,7 @@ const Blog = () => {
             animate={{ opacity: 1, y: 0 }}
             className="font-display text-3xl md:text-4xl font-bold text-navy mb-6"
           >
-            Actualités & Conseils Immobiliers sur la Côte Varoise
+            Actualités et Conseils Immobiliers sur la Côte Varoise
           </motion.h1>
           <p className="text-muted-foreground">
             Articles et conseils à venir. Restez connectés !
