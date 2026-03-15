@@ -101,21 +101,92 @@ const NosBiens = () => {
       </section>
 
       {/* Filters */}
-      <section className="bg-background border-b border-border sticky top-[70px] z-40 shadow-nav">
-        <div className="container-narrow mx-auto px-4 md:px-8 py-5">
-          <div className="flex items-center gap-2 mb-3">
-            <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Filtres</span>
+      <section className="bg-card/80 backdrop-blur-md border-b border-border/50 sticky top-[70px] z-40">
+        <div className="container-narrow mx-auto px-4 md:px-8 py-4">
+          <div className="flex flex-col gap-4">
+            {/* Filter rows */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              {/* City filter */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground shrink-0">
+                  <MapPin className="h-3.5 w-3.5 inline mr-1" />
+                  Ville
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {cities.map((city) => (
+                    <button
+                      key={city}
+                      onClick={() => setCityFilter(city)}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                        cityFilter === city
+                          ? "bg-navy text-primary-foreground shadow-sm"
+                          : "text-foreground/60 hover:text-navy hover:bg-muted"
+                      }`}
+                    >
+                      {city}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Separator */}
+              <div className="hidden sm:block w-px h-6 bg-border/60" />
+
+              {/* Type filter */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground shrink-0">
+                  <Search className="h-3.5 w-3.5 inline mr-1" />
+                  Type
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {types.map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => setTypeFilter(type)}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                        typeFilter === type
+                          ? "bg-navy text-primary-foreground shadow-sm"
+                          : "text-foreground/60 hover:text-navy hover:bg-muted"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Active filters summary */}
             {activeFilters > 0 && (
-              <span className="ml-1 text-xs bg-navy text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                {activeFilters}
-              </span>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="flex items-center gap-2 pt-2 border-t border-border/40"
+              >
+                <span className="text-xs text-muted-foreground">{filtered.length} résultat{filtered.length > 1 ? "s" : ""}</span>
+                <div className="flex gap-1.5">
+                  {cityFilter !== "Tous" && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sand/15 text-sand text-xs font-medium">
+                      {cityFilter}
+                      <X className="h-3 w-3 cursor-pointer hover:text-navy transition-colors" onClick={() => setCityFilter("Tous")} />
+                    </span>
+                  )}
+                  {typeFilter !== "Tous" && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sand/15 text-sand text-xs font-medium">
+                      {typeFilter}
+                      <X className="h-3 w-3 cursor-pointer hover:text-navy transition-colors" onClick={() => setTypeFilter("Tous")} />
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={() => { setCityFilter("Tous"); setTypeFilter("Tous"); }}
+                  className="ml-auto text-xs text-muted-foreground hover:text-navy font-medium transition-colors"
+                >
+                  Tout effacer
+                </button>
+              </motion.div>
             )}
-          </div>
-          <div className="flex flex-col md:flex-row gap-5">
-            <FilterGroup label="Ville" options={cities} value={cityFilter} onChange={setCityFilter} />
-            <FilterGroup label="Type de bien" options={types} value={typeFilter} onChange={setTypeFilter} />
-            <FilterGroup label="Conseiller" options={conseillers} value={conseillerFilter} onChange={setConseillerFilter} />
           </div>
         </div>
       </section>
