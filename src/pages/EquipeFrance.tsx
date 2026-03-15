@@ -171,16 +171,18 @@ const EquipeFrance = () => {
   }, []);
 
   const filtered = useMemo(() => {
-    if (!search) return members;
-    const q = search.toLowerCase().trim();
-    return members.filter((m) => {
-      return (
-        `${m.prenom} ${m.nom}`.toLowerCase().includes(q) ||
-        `${m.nom} ${m.prenom}`.toLowerCase().includes(q) ||
-        m.ville.toLowerCase().includes(q) ||
-        m.code_postal.includes(q)
-      );
-    });
+    const list = search
+      ? members.filter((m) => {
+          const q = search.toLowerCase().trim();
+          return (
+            `${m.prenom} ${m.nom}`.toLowerCase().includes(q) ||
+            `${m.nom} ${m.prenom}`.toLowerCase().includes(q) ||
+            m.ville.toLowerCase().includes(q) ||
+            m.code_postal.includes(q)
+          );
+        })
+      : [...members];
+    return list.sort((a, b) => a.prenom.localeCompare(b.prenom, "fr"));
   }, [members, search]);
 
   return (
