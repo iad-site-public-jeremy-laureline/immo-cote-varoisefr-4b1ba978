@@ -6,9 +6,27 @@ import { blogArticles } from "@/data/blogArticles";
 import { Badge } from "@/components/ui/badge";
 
 import pvHero from "@/assets/blog/pv-hero-notaire.jpg";
+import fnHero from "@/assets/blog/fn-hero.jpg";
+import dpeHero from "@/assets/blog/dpe-hero.jpg";
+import vrHero from "@/assets/blog/vr-hero.jpg";
+import miHero from "@/assets/blog/mi-hero.jpg";
+import hsHero from "@/assets/blog/hs-hero.jpg";
+import vaHero from "@/assets/blog/va-hero.jpg";
+import ilHero from "@/assets/blog/il-hero.jpg";
+import cvHero from "@/assets/blog/cv-hero.jpg";
+import bmHero from "@/assets/blog/bm-hero.jpg";
 
 const imageMap: Record<string, string> = {
   "/blog/pv-hero-notaire.jpg": pvHero,
+  "/blog/fn-hero.jpg": fnHero,
+  "/blog/dpe-hero.jpg": dpeHero,
+  "/blog/vr-hero.jpg": vrHero,
+  "/blog/mi-hero.jpg": miHero,
+  "/blog/hs-hero.jpg": hsHero,
+  "/blog/va-hero.jpg": vaHero,
+  "/blog/il-hero.jpg": ilHero,
+  "/blog/cv-hero.jpg": cvHero,
+  "/blog/bm-hero.jpg": bmHero,
 };
 
 const Blog = () => {
