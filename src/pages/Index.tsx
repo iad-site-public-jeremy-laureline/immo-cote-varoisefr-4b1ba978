@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Star, Globe, Clock, Award, MapPin, Home, Users, Shield, Eye, Handshake, TrendingUp } from "lucide-react";
 import { properties } from "@/data/properties";
@@ -9,6 +9,10 @@ import laurelineImg from "@/assets/laureline.png";
 import heroImage from "@/assets/hero-coast.jpg";
 import parallaxVilla from "@/assets/parallax-villa.jpg";
 import parallaxAerial from "@/assets/parallax-aerial.jpg";
+import parallaxPort from "@/assets/parallax-port.jpg";
+import parallaxInterior from "@/assets/parallax-interior.jpg";
+
+const heroSlides = [heroImage, parallaxVilla, parallaxAerial, parallaxPort];
 import sixFoursImg from "@/assets/six-fours.jpg";
 import sanaryImg from "@/assets/sanary.jpg";
 import bandolImg from "@/assets/bandol.jpg";
