@@ -146,7 +146,6 @@ const EquipeFrance = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
-  const [cityFilter, setCityFilter] = useState("all");
   const [qualifFilter, setQualifFilter] = useState("all");
 
   useEffect(() => {
