@@ -147,6 +147,21 @@ const Index = () => {
             </Link>
           </motion.div>
         </div>
+        {/* Slide indicators */}
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2.5">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                currentSlide === index
+                  ? "bg-primary-foreground/90 w-6"
+                  : "bg-primary-foreground/35 hover:bg-primary-foreground/55"
+              }`}
+              aria-label={`Slide ${index + 1}`}
+            />
+          ))}
+        </div>
         <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute bottom-8 text-primary-foreground/50">
           <ChevronDown size={32} />
         </motion.div>
