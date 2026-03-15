@@ -46,9 +46,6 @@ const NotreEquipe = () => {
                 alt="Jérémy Vieira — Conseiller immobilier indépendant"
                 className="w-full h-[420px] md:h-full object-cover object-top shadow-[4px_0_24px_-4px_rgba(0,0,0,0.15)]"
               />
-              <div className="absolute bottom-4 left-4 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded text-xs font-medium text-navy shadow-sm">
-                ⭐ 4,8/5 · 45 avis clients
-              </div>
             </motion.div>
 
             {/* Bio */}
@@ -93,8 +90,19 @@ const NotreEquipe = () => {
         </div>
       </section>
 
-      {/* Séparateur */}
-      <div className="h-[2px] bg-gray-light" />
+      {/* Séparateur + avis combinés */}
+      <div className="bg-background">
+        <div className="container-narrow mx-auto px-4 md:px-8">
+          <motion.div {...fadeUp} className="flex items-center justify-center gap-6 py-8">
+            <div className="h-[1px] flex-1 bg-border" />
+            <div className="bg-navy text-primary-foreground px-6 py-3 rounded-lg text-center shadow-sm">
+              <p className="text-lg font-semibold">⭐ 4,8 / 5</p>
+              <p className="text-xs text-primary-foreground/70 mt-0.5">176 avis clients vérifiés</p>
+            </div>
+            <div className="h-[1px] flex-1 bg-border" />
+          </motion.div>
+        </div>
+      </div>
 
       {/* SECTION 3 — Laureline (inversé) */}
       <section className="bg-background">
@@ -149,9 +157,6 @@ const NotreEquipe = () => {
                 alt="Laureline Lohéac — Conseillère immobilière indépendante"
                 className="w-full h-[420px] md:h-full object-cover object-top shadow-[-4px_0_24px_-4px_rgba(0,0,0,0.15)]"
               />
-              <div className="absolute bottom-4 right-4 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded text-xs font-medium text-navy shadow-sm">
-                ⭐ 4,8/5 · 131 avis clients
-              </div>
             </motion.div>
           </div>
         </div>
