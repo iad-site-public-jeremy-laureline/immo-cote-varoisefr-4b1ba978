@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { cities } from "@/data/cities";
 import sixFoursImg from "@/assets/six-fours.jpg";
 import sanaryImg from "@/assets/sanary.jpg";
