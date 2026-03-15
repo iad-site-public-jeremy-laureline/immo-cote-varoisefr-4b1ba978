@@ -66,13 +66,13 @@ const Footer = () => {
             <h4 className="font-body font-semibold text-sm uppercase tracking-wider mb-4 text-sand">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-primary-foreground/70">
-                <Phone size={16} className="text-sand" /> Jérémy : [à compléter]
+                <Phone size={16} className="text-sand" /> <a href="tel:+33631464538" className="hover:text-sand transition-colors">Jérémy : 06 31 46 45 38</a>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/70">
-                <Phone size={16} className="text-sand" /> Laureline : [à compléter]
+                <Phone size={16} className="text-sand" /> <a href="tel:+33637339857" className="hover:text-sand transition-colors">Laureline : 06 37 33 98 57</a>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/70">
-                <Mail size={16} className="text-sand" /> [à compléter]
+                <Mail size={16} className="text-sand" /> <a href="mailto:contact@immobilier-var.fr" className="hover:text-sand transition-colors">contact@immobilier-var.fr</a>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/70">
                 <MapPin size={16} className="text-sand" />
