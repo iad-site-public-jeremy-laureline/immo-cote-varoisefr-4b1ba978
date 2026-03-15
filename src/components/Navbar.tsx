@@ -31,7 +31,7 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isHome = location.pathname === "/";
@@ -45,7 +45,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
+        setOpenDropdown(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -54,7 +54,12 @@ const Navbar = () => {
 
   const navBg = scrolled || !isHome ? "bg-background shadow-nav" : "bg-transparent";
   const textColor = scrolled || !isHome ? "text-navy" : "text-primary-foreground";
-  const logoColor = scrolled || !isHome ? "text-navy" : "text-primary-foreground";
+
+  const getDropdownItems = (key: string) => {
+    if (key === "sectors") return sectorLinks;
+    if (key === "team") return teamLinks;
+    return [];
+  };
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
@@ -68,30 +73,30 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6" ref={dropdownRef}>
           {navLinks.map((link) =>
             link.dropdown ? (
-              <div key={link.label} className="relative" ref={dropdownRef}>
+              <div key={link.label} className="relative">
                 <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  onClick={() => setOpenDropdown(openDropdown === link.dropdown ? null : link.dropdown!)}
                   className={`text-sm font-medium transition-colors hover:text-sand ${textColor} flex items-center gap-1`}
                 >
                   {link.label}
-                  <ChevronDown size={14} className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown size={14} className={`transition-transform ${openDropdown === link.dropdown ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence>
-                  {dropdownOpen && (
+                  {openDropdown === link.dropdown && (
                     <motion.div
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
                       className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-background rounded-lg shadow-card-hover border border-border py-2 min-w-[220px]"
                     >
-                      {sectorLinks.map((s) => (
+                      {getDropdownItems(link.dropdown!).map((s) => (
                         <Link
                           key={s.href}
                           to={s.href}
-                          onClick={() => setDropdownOpen(false)}
+                          onClick={() => setOpenDropdown(null)}
                           className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-sand transition-colors"
                         >
                           {s.label}
@@ -143,7 +148,7 @@ const Navbar = () => {
                   <div key={link.label}>
                     <p className="text-navy font-medium py-2">{link.label}</p>
                     <div className="pl-4 flex flex-col gap-1">
-                      {sectorLinks.map((s) => (
+                      {getDropdownItems(link.dropdown!).map((s) => (
                         <Link
                           key={s.href}
                           to={s.href}
