@@ -103,7 +103,7 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
 
       <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-2">
         <MapPin size={13} className="text-sand shrink-0" />
-        <span>{member.ville}</span>
+        <span>{member.code_postal} {member.ville}</span>
       </div>
 
       {member.telephone && (
