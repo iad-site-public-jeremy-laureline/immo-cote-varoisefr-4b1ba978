@@ -38,10 +38,10 @@ const Contact = () => {
             <div>
               <div className="space-y-6 mb-8">
                 {[
-                  { icon: Phone, label: "Téléphone Jérémy", value: "[à compléter]" },
-                  { icon: Phone, label: "Téléphone Laureline", value: "[à compléter]" },
-                  { icon: Mail, label: "Email", value: "[à compléter]" },
-                  { icon: MapPin, label: "Secteur", value: "Côte Varoise — Six-Fours, Sanary, Toulon" },
+                  { icon: Phone, label: "Téléphone Jérémy", value: "06 31 46 45 38", href: "tel:+33631464538" },
+                  { icon: Phone, label: "Téléphone Laureline", value: "06 37 33 98 57", href: "tel:+33637339857" },
+                  { icon: Mail, label: "Email", value: "contact@immobilier-var.fr", href: "mailto:contact@immobilier-var.fr" },
+                  { icon: MapPin, label: "Secteur", value: "De Saint-Cyr-sur-Mer à Carqueiranne" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-sand/10 flex items-center justify-center">
