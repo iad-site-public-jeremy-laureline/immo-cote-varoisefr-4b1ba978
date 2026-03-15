@@ -156,7 +156,8 @@ const EquipeFrance = () => {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Erreur de chargement");
         const data = await res.json();
-        setMembers(Array.isArray(data) ? data : data.data || []);
+        const rawList: RawMember[] = Array.isArray(data) ? data : data.data || [];
+        setMembers(rawList.map(mapRawMember));
       } catch (err) {
         setError("Impossible de charger l'équipe. Veuillez réessayer.");
         console.error(err);
