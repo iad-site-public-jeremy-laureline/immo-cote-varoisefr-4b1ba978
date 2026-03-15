@@ -146,7 +146,7 @@ const EquipeFrance = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
-  const [qualifFilter, setQualifFilter] = useState("all");
+  
 
   useEffect(() => {
     document.title = "Équipe française — Nos conseillers immobiliers en France";
