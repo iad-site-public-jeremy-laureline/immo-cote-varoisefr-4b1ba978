@@ -78,8 +78,17 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(price);
 
 const Index = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   useEffect(() => {
     document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy et Laureline";
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
   const visibleProperties = properties.filter(p => p.status !== "Sous compromis").slice(0, 6);
@@ -88,7 +97,17 @@ const Index = () => {
     <div>
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-10">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }} />
+        {/* Slider background images */}
+        {heroSlides.map((slide, index) => (
+          <div
+            key={index}
+            className="absolute inset-0 bg-cover bg-center transition-opacity duration-[1500ms] ease-in-out"
+            style={{
+              backgroundImage: `url(${slide})`,
+              opacity: currentSlide === index ? 1 : 0,
+            }}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/80 via-navy/55 to-navy-deep/75" />
         <div className="relative z-10 text-center px-4 max-w-4xl w-full pt-20">
           <motion.h1
