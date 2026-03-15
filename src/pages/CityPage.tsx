@@ -216,14 +216,18 @@ const CityPage = () => {
           <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-6">
             Foire aux questions — Immobilier à {city.name}
           </h2>
-          <div className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-2">
             {city.faq.map((item, i) => (
-              <div key={i} className="bg-background rounded-lg p-5 shadow-card">
-                <h3 className="font-semibold text-navy text-sm mb-2">{item.q}</h3>
-                <p className="text-foreground/70 text-sm leading-relaxed">{item.a}</p>
-              </div>
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-background rounded-lg shadow-card border-none">
+                <AccordionTrigger className="px-5 py-4 text-navy text-sm font-semibold hover:no-underline">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="px-5 text-foreground/70 text-sm leading-relaxed">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
 
