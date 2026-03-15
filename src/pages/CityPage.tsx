@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Camera } from "lucide-react";
 import { cities } from "@/data/cities";
 import sixFoursImg from "@/assets/six-fours.jpg";
 import sanaryImg from "@/assets/sanary.jpg";
@@ -30,6 +31,26 @@ const renderText = (text: string) => {
 
 const otherCities = (currentSlug: string) =>
   cities.filter(c => c.slug !== currentSlug);
+
+/** Parallax-style photo separator */
+const PhotoSeparator = ({ src, alt, overlay = "bg-navy/30" }: { src: string; alt: string; overlay?: string }) => (
+  <section className="relative h-[35vh] min-h-[250px] overflow-hidden">
+    <div
+      className="absolute inset-0 bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url(${src})` }}
+    />
+    <div className={`absolute inset-0 ${overlay}`} />
+    <img src={src} alt={alt} className="sr-only" />
+  </section>
+);
+
+/** Placeholder for missing photo */
+const PhotoPlaceholder = ({ label }: { label: string }) => (
+  <div className="bg-muted/50 border-2 border-dashed border-foreground/10 rounded-lg flex flex-col items-center justify-center text-foreground/30 aspect-[16/9]">
+    <Camera className="w-8 h-8 mb-2" />
+    <span className="text-xs">{label}</span>
+  </div>
+);
 
 const CityPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -84,6 +105,9 @@ const CityPage = () => {
         </div>
       </section>
 
+      {/* Separator 1 — after intro */}
+      <PhotoSeparator src={image} alt={`Vue de ${city.name}`} overlay="bg-navy/20" />
+
       {/* Market */}
       <section className="section-padding bg-muted">
         <div className="max-w-3xl mx-auto px-4 md:px-8">
@@ -101,18 +125,25 @@ const CityPage = () => {
         </div>
       </section>
 
-      {/* Prices by sector */}
+      {/* Prices by sector — with optional images per sector */}
       <section className="section-padding bg-background">
         <div className="max-w-3xl mx-auto px-4 md:px-8">
           <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">{city.pricesTitle}</h2>
           {city.pricesIntro && (
             <p className="text-foreground/80 leading-relaxed mb-6">{city.pricesIntro}</p>
           )}
-          <div className="space-y-4">
+          <div className="space-y-5">
             {city.priceSectors.map((sector, i) => (
-              <div key={i} className="bg-muted rounded-lg p-5 border-l-4 border-sand">
-                <h3 className="font-semibold text-navy mb-2">{sector.name}</h3>
-                <p className="text-foreground/70 text-sm leading-relaxed">{sector.description}</p>
+              <div key={i} className="bg-muted rounded-lg overflow-hidden border-l-4 border-sand">
+                {sector.image ? (
+                  <div className="aspect-[3/1] w-full overflow-hidden">
+                    <img src={sector.image} alt={sector.name} className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                ) : null}
+                <div className="p-5">
+                  <h3 className="font-semibold text-navy mb-2">{sector.name}</h3>
+                  <p className="text-foreground/70 text-sm leading-relaxed">{sector.description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -127,11 +158,11 @@ const CityPage = () => {
         </div>
       </section>
 
-      {/* Photo placeholder - selling section image */}
-      <section className="relative h-[35vh] min-h-[250px] overflow-hidden">
-        <img src={image} alt={`Vendre à ${city.name}`} className="w-full h-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-navy/30" />
-      </section>
+      {/* Separator 2 — before selling */}
+      <PhotoSeparator
+        src={city.separatorImage2 || image}
+        alt={`Vendre à ${city.name}`}
+      />
 
       {/* Selling */}
       <section className="section-padding bg-muted">
@@ -191,6 +222,44 @@ const CityPage = () => {
             <div className="space-y-4">
               {city.expertiseText.map((p, i) => (
                 <p key={i} className="text-foreground/80 leading-relaxed">{p}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Separator 3 — before CTA */}
+      <PhotoSeparator
+        src={city.separatorImage3 || image}
+        alt={`Immobilier à ${city.name}`}
+        overlay="bg-navy/40"
+      />
+
+      {/* Photo Gallery */}
+      {city.galleryImages && city.galleryImages.length > 0 ? (
+        <section className="section-padding bg-background">
+          <div className="max-w-4xl mx-auto px-4 md:px-8">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-navy mb-6 text-center">
+              {city.name} en images
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {city.galleryImages.map((img, i) => (
+                <div key={i} className="aspect-[4/3] rounded-lg overflow-hidden">
+                  <img src={img} alt={`${city.name} - Photo ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="section-padding bg-background">
+          <div className="max-w-4xl mx-auto px-4 md:px-8">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-navy mb-6 text-center">
+              {city.name} en images
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[1, 2, 3, 4, 5, 6].map(n => (
+                <PhotoPlaceholder key={n} label={`Photo ${n}`} />
               ))}
             </div>
           </div>
