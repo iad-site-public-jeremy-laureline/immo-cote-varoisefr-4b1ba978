@@ -85,7 +85,7 @@ const Index = () => {
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy/50 to-navy-deep/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/80 via-navy/55 to-navy-deep/75" />
         <div className="relative z-10 text-center px-4 max-w-4xl w-full pt-20">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
