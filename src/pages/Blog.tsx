@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Blog = () => {
   useEffect(() => {
-    document.title = "Actualités & Conseils Immobiliers sur la Côte Varoise | Jérémy & Laureline";
+    document.title = "Actualités et Conseils Immobiliers sur la Côte Varoise | Jérémy et Laureline";
   }, []);
 
   return (
