@@ -13,8 +13,8 @@ export const cities: CityData[] = [
   {
     slug: "six-fours-les-plages",
     name: "Six-Fours-les-Plages",
-    title: "Immobilier Six-Fours-les-Plages — Vente, Achat, Estimation",
-    metaDescription: "Vendre ou acheter à Six-Fours-les-Plages ? Jeremy & Laureline, experts locaux IAD. Estimation gratuite, prix du m², biens disponibles.",
+    title: "Immobilier Six-Fours-les-Plages | Jérémy & Laureline",
+    metaDescription: "Vendre ou acheter à Six-Fours-les-Plages ? Jérémy & Laureline, conseillers immobiliers indépendants. Estimation gratuite, prix du m², biens disponibles.",
     intro: "Située entre Toulon et Sanary, Six-Fours-les-Plages est l'une des communes les plus recherchées du Var. Avec ses 32 km de côtes, ses quartiers résidentiels du Brusc, sa forêt de Janas et son accès rapide aux grandes villes, Six-Fours attire aussi bien les familles que les investisseurs. Le marché immobilier y affiche des prix médians autour de 4 900 €/m² pour les appartements et 5 565 €/m² pour les maisons.",
     prices: [
       { type: "Appartement — centre / Lônes", range: "4 200 — 5 200 €/m²", note: "Variable selon étage" },
@@ -37,8 +37,8 @@ export const cities: CityData[] = [
   {
     slug: "sanary-sur-mer",
     name: "Sanary-sur-Mer",
-    title: "Immobilier Sanary-sur-Mer — Vente, Achat, Estimation",
-    metaDescription: "Immobilier à Sanary-sur-Mer : estimation, vente et achat avec Jeremy & Laureline, conseillers IAD. Prix m², marché local, accompagnement personnalisé.",
+    title: "Immobilier Sanary-sur-Mer | Jérémy & Laureline",
+    metaDescription: "Immobilier à Sanary-sur-Mer : estimation, vente et achat avec Jérémy & Laureline, conseillers immobiliers indépendants. Prix m², marché local.",
     intro: "Sanary-sur-Mer, élue plus belle ville de France, séduit par son port coloré, ses marchés provençaux et son art de vivre méditerranéen. Le marché immobilier y est dynamique avec une forte demande pour les biens de caractère, les vues mer et les appartements en centre-ville.",
     prices: [
       { type: "Appartement centre", range: "4 500 — 6 000 €/m²", note: "Proche du port" },
@@ -53,8 +53,8 @@ export const cities: CityData[] = [
   {
     slug: "bandol",
     name: "Bandol",
-    title: "Immobilier Bandol — Vente, Achat, Estimation",
-    metaDescription: "Vendre votre villa ou appartement à Bandol ? Jeremy & Laureline, mandataires IAD experts de la côte varoise. Estimation gratuite.",
+    title: "Immobilier Bandol | Jérémy & Laureline",
+    metaDescription: "Vendre votre villa ou appartement à Bandol ? Jérémy & Laureline, conseillers immobiliers indépendants experts de la côte varoise. Estimation gratuite.",
     intro: "Bandol est une station balnéaire prisée, connue pour ses vignobles AOC, ses plages de sable fin et son ambiance chic mais décontractée. Le marché immobilier y est haut de gamme avec des biens d'exception.",
     prices: [
       { type: "Appartement", range: "5 000 — 7 000 €/m²", note: "Centre et bord de mer" },
@@ -68,8 +68,8 @@ export const cities: CityData[] = [
   {
     slug: "toulon",
     name: "Toulon",
-    title: "Immobilier Toulon — Vente, Achat, Estimation",
-    metaDescription: "Achat et vente immobilière à Toulon avec Jeremy & Laureline, conseillers IAD indépendants. Estimation, mandats, accompagnement.",
+    title: "Immobilier Toulon | Jérémy & Laureline",
+    metaDescription: "Achat et vente immobilière à Toulon avec Jérémy & Laureline, conseillers immobiliers indépendants. Estimation, mandats, accompagnement.",
     intro: "Préfecture du Var et plus grande ville de la côte, Toulon offre un marché immobilier diversifié, des quartiers historiques du Mourillon aux résidences modernes du port. Les prix restent plus accessibles que dans les communes voisines.",
     prices: [
       { type: "Appartement centre", range: "2 500 — 4 000 €/m²", note: "Selon quartier" },
@@ -83,8 +83,8 @@ export const cities: CityData[] = [
   {
     slug: "la-seyne-sur-mer",
     name: "La Seyne-sur-Mer",
-    title: "Immobilier La Seyne-sur-Mer — Vente, Achat, Estimation",
-    metaDescription: "Immobilier à La Seyne-sur-Mer. Jeremy & Laureline, conseillers IAD. Estimation gratuite et accompagnement personnalisé.",
+    title: "Immobilier La Seyne-sur-Mer | Jérémy & Laureline",
+    metaDescription: "Immobilier à La Seyne-sur-Mer. Jérémy & Laureline, conseillers immobiliers indépendants. Estimation gratuite et accompagnement personnalisé.",
     intro: "La Seyne-sur-Mer, entre Toulon et Sanary, connaît un renouveau immobilier avec le développement du quartier Tamaris et la réhabilitation du centre-ville. Les prix restent attractifs avec un fort potentiel de valorisation.",
     prices: [
       { type: "Appartement", range: "2 800 — 4 200 €/m²", note: "Centre et Tamaris" },
@@ -98,8 +98,8 @@ export const cities: CityData[] = [
   {
     slug: "ollioules",
     name: "Ollioules",
-    title: "Immobilier Ollioules — Vente, Achat, Estimation",
-    metaDescription: "Immobilier à Ollioules. Jeremy & Laureline, conseillers IAD spécialistes du Var. Estimation gratuite de votre bien.",
+    title: "Immobilier Ollioules | Jérémy & Laureline",
+    metaDescription: "Immobilier à Ollioules. Jérémy & Laureline, conseillers immobiliers indépendants spécialistes du Var. Estimation gratuite de votre bien.",
     intro: "Ollioules, village provençal authentique niché entre mer et collines, séduit par son charme médiéval, ses gorges spectaculaires et sa proximité avec Toulon et Sanary. Un marché immobilier de caractère.",
     prices: [
       { type: "Appartement", range: "3 000 — 4 200 €/m²", note: "Centre village" },

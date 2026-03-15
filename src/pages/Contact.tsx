@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 const Contact = () => {
   useEffect(() => {
-    document.title = "Contact | Jeremy & Laureline Immobilier";
+    document.title = "Nous contacter | Jérémy & Laureline Immobilier";
   }, []);
 
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", message: "" });
@@ -28,7 +28,7 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             className="font-display text-3xl md:text-4xl font-bold text-navy text-center mb-4"
           >
-            Contactez-nous
+            Nous contacter
           </motion.h1>
           <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
             Une question ? Un projet immobilier ? Nous sommes disponibles 7j/7 pour vous accompagner.
@@ -38,9 +38,10 @@ const Contact = () => {
             <div>
               <div className="space-y-6 mb-8">
                 {[
-                  { icon: Phone, label: "Téléphone", value: "01 23 45 67 89" },
-                  { icon: Mail, label: "Email", value: "contact@example.com" },
-                  { icon: MapPin, label: "Secteur", value: "Six-Fours-les-Plages, Var" },
+                  { icon: Phone, label: "Téléphone Jérémy", value: "[à compléter]" },
+                  { icon: Phone, label: "Téléphone Laureline", value: "[à compléter]" },
+                  { icon: Mail, label: "Email", value: "[à compléter]" },
+                  { icon: MapPin, label: "Secteur", value: "Côte Varoise — Six-Fours, Sanary, Toulon" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-sand/10 flex items-center justify-center">

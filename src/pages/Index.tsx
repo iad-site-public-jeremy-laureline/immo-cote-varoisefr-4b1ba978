@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Star, Clock, Users, MapPin, Percent } from "lucide-react";
-import EstimationForm from "@/components/EstimationForm";
+import { ChevronDown, Star, Home, Building, TreePine, Store, Globe } from "lucide-react";
+import { toast } from "sonner";
 import heroImage from "@/assets/hero-coast.jpg";
 import sixFoursImg from "@/assets/six-fours.jpg";
 import sanaryImg from "@/assets/sanary.jpg";
@@ -31,33 +31,67 @@ const sectors = [
 ];
 
 const stats = [
-  { icon: Clock, value: "12+", label: "ans d'expérience" },
-  { icon: Users, value: "140+", label: "conseillers dans le réseau" },
-  { icon: MapPin, value: "Var", label: "& Côte Varoise" },
-  { icon: Percent, value: "-30%", label: "vs marché (honoraires)" },
+  { value: "15+", label: "ans d'expérience" },
+  { value: "176", label: "avis clients 4,8/5" },
+  { value: "10", label: "biens disponibles" },
+  { value: "6", label: "secteurs couverts" },
+  { value: "7j/7", label: "disponibilité" },
 ];
 
 const testimonials = [
-  { name: "Marie D.", type: "Vente maison à Six-Fours", text: "Jeremy et Laureline ont vendu notre maison en moins de 2 mois. Professionnalisme et disponibilité remarquables !" },
-  { name: "Pierre L.", type: "Achat appartement Sanary", text: "Un accompagnement sur-mesure du début à la fin. Leur connaissance du marché local est impressionnante." },
-  { name: "Sophie M.", type: "Vente villa Bandol", text: "Des honoraires très compétitifs et un service haut de gamme. Je recommande vivement !" },
+  {
+    name: "Romain",
+    type: "Mise en vente",
+    text: "J'ai eu affaire à M. Vieira lors de la vente de ma maison. Une vente qui s'annonçait difficile mais tout s'est super bien passé et vendu à un bon prix ! Je recommande à 100%.",
+    badge: "Jérémy · Six-Fours",
+  },
+  {
+    name: "JC",
+    type: "Mise en vente",
+    text: "Je lui ai confié mes deux biens pour la mise en vente. Cela s'est fait relativement rapidement au prix net vendeur que je souhaitais. Excellent professionnel dans son domaine.",
+    badge: "Jérémy · Var",
+  },
+  {
+    name: "RdL",
+    type: "Mise en vente",
+    text: "Très professionnelle et qualité de suivi irréprochable. Digne de confiance !",
+    badge: "Laureline · Sanary",
+  },
+];
+
+const typeOptions = [
+  { value: "appartement", label: "Appartement", icon: Building },
+  { value: "maison", label: "Maison", icon: Home },
+  { value: "villa", label: "Villa", icon: Home },
+  { value: "terrain", label: "Terrain", icon: TreePine },
+  { value: "local", label: "Local commercial", icon: Store },
 ];
 
 const Index = () => {
+  const [heroForm, setHeroForm] = useState({ typeBien: "", ville: "", prenom: "", telephone: "" });
+
   useEffect(() => {
-    document.title = "Conseillers IAD sur la Côte Varoise | Jeremy & Laureline Immobilier";
+    document.title = "Conseillers Immobiliers Indépendants — Côte Varoise | Jérémy & Laureline";
   }, []);
+
+  const handleHeroSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success("Votre demande d'estimation a bien été envoyée ! Nous vous recontactons sous 24h.");
+    setHeroForm({ typeBien: "", ville: "", prenom: "", telephone: "" });
+  };
+
+  const inputClass = "w-full px-4 py-3 border border-border rounded-lg font-body text-sm focus:outline-none focus:border-sand focus:ring-2 focus:ring-sand/20 transition-all bg-background text-foreground";
 
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="absolute inset-0 bg-navy/55" />
-        <div className="relative z-10 text-center px-4 max-w-3xl">
+        <div className="relative z-10 text-center px-4 max-w-4xl w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,19 +106,65 @@ const Index = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mt-4 text-lg md:text-xl text-primary-foreground/80 font-body"
           >
-            Jeremy & Laureline — Conseillers IAD | Six-Fours · Sanary · Bandol · Toulon
+            Jérémy & Laureline — 15 ans d'expérience | Six-Fours · Sanary · Bandol · Toulon · La Seyne · Ollioules
           </motion.p>
+
+          {/* Inline estimation form */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-8"
+            className="mt-10 mx-auto max-w-2xl"
           >
-            <Link to="/estimation">
-              <Button variant="sand" size="lg" className="text-base px-8 py-4 text-lg">
-                Estimer mon bien gratuitement
+            <form
+              onSubmit={handleHeroSubmit}
+              className="bg-white/90 backdrop-blur-sm rounded-xl shadow-card-hover p-6 md:p-8"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <select
+                  name="typeBien"
+                  value={heroForm.typeBien}
+                  onChange={e => setHeroForm({ ...heroForm, typeBien: e.target.value })}
+                  required
+                  className={inputClass}
+                >
+                  <option value="">Type de bien</option>
+                  {typeOptions.map(t => (
+                    <option key={t.value} value={t.value}>{t.label}</option>
+                  ))}
+                </select>
+                <input
+                  name="ville"
+                  value={heroForm.ville}
+                  onChange={e => setHeroForm({ ...heroForm, ville: e.target.value })}
+                  required
+                  className={inputClass}
+                  placeholder="Ville"
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <input
+                  name="prenom"
+                  value={heroForm.prenom}
+                  onChange={e => setHeroForm({ ...heroForm, prenom: e.target.value })}
+                  required
+                  className={inputClass}
+                  placeholder="Prénom"
+                />
+                <input
+                  name="telephone"
+                  type="tel"
+                  value={heroForm.telephone}
+                  onChange={e => setHeroForm({ ...heroForm, telephone: e.target.value })}
+                  required
+                  className={inputClass}
+                  placeholder="Téléphone"
+                />
+              </div>
+              <Button type="submit" variant="sand" size="lg" className="w-full text-base py-4">
+                Estimer mon bien gratuitement →
               </Button>
-            </Link>
+            </form>
           </motion.div>
         </div>
         <motion.div
@@ -97,20 +177,20 @@ const Index = () => {
       </section>
 
       {/* Stats */}
-      <section className="bg-background section-padding">
+      <section className="bg-navy section-padding">
         <div className="container-narrow mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <stat.icon className="mx-auto mb-3 text-sand" size={28} />
-                <div className="font-display text-3xl md:text-4xl font-bold text-navy">{stat.value}</div>
-                <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                <div className="font-display text-4xl md:text-5xl font-bold text-sand">{stat.value}</div>
+                <div className="text-sm text-primary-foreground/70 mt-1">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -127,35 +207,65 @@ const Index = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-6">
-              Deux experts à votre service sur la côte varoise
+              Deux experts à votre service, une seule priorité : votre projet
             </h2>
             <p className="text-foreground/80 leading-relaxed mb-4">
-              Installés sur la côte varoise depuis plus de 12 ans, nous connaissons chaque quartier, chaque rue, chaque tendance de prix de notre secteur. Jeremy et Laureline, c'est une double expertise au service de votre projet : la transaction immobilière et la valorisation locative, sous le toit du premier réseau de mandataires indépendants de France, IAD.
+              Forts de plus de 15 ans d'expérience dans l'immobilier, nous avons choisi la Côte Varoise pour exercer notre métier au plus près du terrain et des gens. Jérémy et Laureline, c'est une double expertise complémentaire : la transaction, la négociation, la valorisation — au service de votre projet, à chaque étape.
             </p>
             <p className="text-foreground/80 leading-relaxed">
-              En tant que conseillers indépendants, nous ne sommes pas contraints par les horaires d'une agence. Nous sommes disponibles 7j/7, nous nous déplaçons chez vous, et nous vous accompagnons de l'estimation jusqu'à la signature chez le notaire. Votre bien mérite une attention exclusive — c'est ce que nous vous offrons.
+              En tant que conseillers indépendants, nous ne sommes contraints par aucun horaire d'agence. Disponibles 7j/7, nous nous déplaçons chez vous, nous connaissons chaque quartier, chaque rue, chaque dynamique de prix de notre secteur. Votre bien mérite une attention exclusive — c'est exactement ce que nous offrons.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-2xl mx-auto">
-            {[
-              { name: "Jeremy Vieira", desc: "Expert en transaction immobilière, négociation et valorisation des biens sur le secteur côtier." },
-              { name: "Laureline Loheac", desc: "Spécialiste de l'accompagnement client, estimation et stratégie de vente personnalisée." },
-            ].map((person) => (
-              <motion.div
-                key={person.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="bg-background rounded-lg p-6 shadow-card text-center"
-              >
-                <div className="w-20 h-20 rounded-full bg-sand/20 mx-auto mb-4 flex items-center justify-center">
-                  <span className="font-display text-2xl text-sand font-bold">{person.name[0]}</span>
-                </div>
-                <h3 className="font-display text-xl font-semibold text-navy">{person.name}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{person.desc}</p>
-              </motion.div>
-            ))}
+          {/* Advisor cards */}
+          <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-3xl mx-auto">
+            {/* Jérémy */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-background rounded-xl p-6 shadow-card text-center"
+            >
+              <div className="w-24 h-24 rounded-full bg-sand/20 mx-auto mb-4 flex items-center justify-center">
+                <span className="font-display text-3xl text-sand font-bold">J</span>
+              </div>
+              <h3 className="font-display text-xl font-semibold text-navy">Jérémy Vieira</h3>
+              <p className="text-sm text-muted-foreground mt-1">Conseiller immobilier indépendant</p>
+              <p className="text-sm text-muted-foreground">Six-Fours-les-Plages & environs</p>
+              <div className="flex items-center justify-center gap-1 mt-3">
+                <Star size={14} className="fill-sand text-sand" />
+                <span className="text-sm font-medium text-navy">4,8/5</span>
+                <span className="text-xs text-muted-foreground">· 45 avis clients</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">Parle : Français</p>
+            </motion.div>
+
+            {/* Laureline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-background rounded-xl p-6 shadow-card text-center"
+            >
+              <div className="w-24 h-24 rounded-full bg-sand/20 mx-auto mb-4 flex items-center justify-center">
+                <span className="font-display text-3xl text-sand font-bold">L</span>
+              </div>
+              <h3 className="font-display text-xl font-semibold text-navy">Laureline Lohéac</h3>
+              <p className="text-sm text-muted-foreground mt-1">Conseillère immobilière indépendante</p>
+              <p className="text-sm text-muted-foreground">Sanary-sur-Mer & environs</p>
+              <div className="flex items-center justify-center gap-1 mt-3">
+                <Star size={14} className="fill-sand text-sand" />
+                <span className="text-sm font-medium text-navy">4,8/5</span>
+                <span className="text-xs text-muted-foreground">· 131 avis clients</span>
+              </div>
+              <div className="flex items-center justify-center gap-2 mt-2">
+                <p className="text-xs text-muted-foreground">Parle : Français · </p>
+                <span className="inline-flex items-center gap-1 text-xs bg-sand/15 text-navy px-2 py-0.5 rounded-full font-medium">
+                  <Globe size={10} /> Anglais
+                </span>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -189,6 +299,7 @@ const Index = () => {
                     src={sectorImages[sector.name]}
                     alt={`Immobilier ${sector.name}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/30 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -205,12 +316,12 @@ const Index = () => {
 
       {/* Estimation Form */}
       <section className="section-padding bg-sand-light">
-        <div className="container-narrow mx-auto max-w-2xl">
+        <div className="container-narrow mx-auto max-w-2xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-8"
+            className="mb-8"
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
               Combien vaut votre bien ?
@@ -219,23 +330,31 @@ const Index = () => {
               Propriétaires, obtenez en 24h une estimation précise de votre bien par des experts qui connaissent chaque rue de la côte varoise.
             </p>
           </motion.div>
-          <div className="bg-background rounded-xl p-6 md:p-8 shadow-card">
-            <EstimationForm />
-          </div>
+          <Link to="/estimation">
+            <Button variant="sand" size="lg" className="text-base px-8">
+              Demander mon estimation gratuite
+            </Button>
+          </Link>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="section-padding bg-background">
         <div className="container-narrow mx-auto">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-3xl md:text-4xl font-bold text-navy text-center mb-12"
+            className="text-center mb-10"
           >
-            Témoignages
-          </motion.h2>
+            <div className="inline-flex items-center gap-2 bg-sand/10 text-navy px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <Star size={14} className="fill-sand text-sand" />
+              4,8/5 · 176 avis clients vérifiés
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-navy">
+              Ils nous ont fait confiance
+            </h2>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <motion.div
@@ -252,34 +371,70 @@ const Index = () => {
                   ))}
                 </div>
                 <p className="text-foreground/80 text-sm leading-relaxed mb-4">"{t.text}"</p>
-                <div>
-                  <p className="font-semibold text-navy text-sm">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.type}</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-semibold text-navy text-sm">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.type}</p>
+                  </div>
+                  <span className="text-xs bg-navy/10 text-navy px-2 py-1 rounded-full">{t.badge}</span>
                 </div>
               </motion.div>
             ))}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <a href="https://www.immodvisor.com" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
+              Voir tous les avis Jérémy →
+            </a>
+            <a href="https://www.immodvisor.com" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
+              Voir tous les avis Laureline →
+            </a>
           </div>
         </div>
       </section>
 
       {/* Ouikey */}
-      <section className="section-padding bg-blue-light">
-        <div className="container-narrow mx-auto text-center max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">
-              Votre bien peut aussi générer des revenus en location courte durée
-            </h2>
-            <p className="text-foreground/70 mb-6">
-              En attendant la vente, ou si vous souhaitez valoriser votre bien, découvrez Ouikey, notre service de conciergerie partenaire.
-            </p>
-            <Button variant="navy-outline" size="lg">
-              En savoir plus sur Ouikey
-            </Button>
-          </motion.div>
+      <section className="section-padding bg-gray-light">
+        <div className="container-narrow mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-navy mb-4">
+                Votre bien peut aussi générer des revenus
+              </h3>
+              <p className="text-foreground/70 mb-6 leading-relaxed">
+                En attente de la vente, ou si vous souhaitez valoriser votre bien via la location saisonnière, découvrez Ouikey — notre service de conciergerie partenaire, expert de la location courte durée sur la Côte Varoise.
+              </p>
+              <a href="https://ouikey.fr" target="_blank" rel="noopener noreferrer">
+                <Button variant="navy-outline" size="default">
+                  Découvrir Ouikey →
+                </Button>
+              </a>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="space-y-6"
+            >
+              {[
+                { emoji: "🏠", title: "Gestion clé en main", desc: "On s'occupe de tout, de A à Z" },
+                { emoji: "📈", title: "Revenus optimisés", desc: "Tarification dynamique et visibilité maximale" },
+                { emoji: "✅", title: "Zéro contrainte propriétaire", desc: "Vous profitez, nous gérons" },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-4">
+                  <span className="text-2xl">{item.emoji}</span>
+                  <div>
+                    <h4 className="font-semibold text-navy text-sm">{item.title}</h4>
+                    <p className="text-xs text-muted-foreground">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

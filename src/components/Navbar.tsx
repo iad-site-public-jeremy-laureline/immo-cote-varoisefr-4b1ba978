@@ -1,20 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const sectorLinks = [
+  { label: "Six-Fours-les-Plages", href: "/six-fours-les-plages" },
+  { label: "Sanary-sur-Mer", href: "/sanary-sur-mer" },
+  { label: "Bandol", href: "/bandol" },
+  { label: "Toulon", href: "/toulon" },
+  { label: "La Seyne-sur-Mer", href: "/la-seyne-sur-mer" },
+  { label: "Ollioules", href: "/ollioules" },
+];
 
 const navLinks = [
   { label: "Nos biens", href: "/nos-biens" },
-  { label: "Estimer mon bien", href: "/estimation" },
-  { label: "Nos secteurs", href: "/#secteurs" },
+  { label: "Nos secteurs", href: "#", dropdown: true },
   { label: "Notre équipe", href: "/notre-equipe" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -24,9 +35,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navBg = scrolled || !isHome
-    ? "bg-background shadow-nav"
-    : "bg-transparent";
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const navBg = scrolled || !isHome ? "bg-background shadow-nav" : "bg-transparent";
   const textColor = scrolled || !isHome ? "text-navy" : "text-primary-foreground";
   const logoColor = scrolled || !isHome ? "text-navy" : "text-primary-foreground";
 
@@ -34,20 +53,53 @@ const Navbar = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
       <nav className="container-narrow mx-auto flex h-[70px] items-center justify-between px-4 md:px-8">
         <Link to="/" className={`font-display text-lg md:text-xl font-semibold tracking-tight transition-colors ${logoColor}`}>
-          Jeremy & Laureline <span className="hidden sm:inline">— Immobilier</span>
+          Jérémy & Laureline <span className="hidden sm:inline">· Immobilier</span>
         </Link>
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={`text-sm font-medium transition-colors hover:text-sand ${textColor}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.dropdown ? (
+              <div key={link.label} className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className={`text-sm font-medium transition-colors hover:text-sand ${textColor} flex items-center gap-1`}
+                >
+                  {link.label}
+                  <ChevronDown size={14} className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+                <AnimatePresence>
+                  {dropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-background rounded-lg shadow-card-hover border border-border py-2 min-w-[220px]"
+                    >
+                      {sectorLinks.map((s) => (
+                        <Link
+                          key={s.href}
+                          to={s.href}
+                          onClick={() => setDropdownOpen(false)}
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-sand transition-colors"
+                        >
+                          {s.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`text-sm font-medium transition-colors hover:text-sand ${textColor}`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <Link to="/estimation">
             <Button variant="sand" size="default" className="ml-2">
               Estimation gratuite
@@ -75,16 +127,34 @@ const Navbar = () => {
             className="lg:hidden bg-background border-t border-border"
           >
             <div className="flex flex-col p-4 gap-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="text-navy font-medium py-2 hover:text-sand transition-colors"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) =>
+                link.dropdown ? (
+                  <div key={link.label}>
+                    <p className="text-navy font-medium py-2">{link.label}</p>
+                    <div className="pl-4 flex flex-col gap-1">
+                      {sectorLinks.map((s) => (
+                        <Link
+                          key={s.href}
+                          to={s.href}
+                          className="text-muted-foreground text-sm py-1 hover:text-sand transition-colors"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="text-navy font-medium py-2 hover:text-sand transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
               <Link to="/estimation" onClick={() => setMobileOpen(false)}>
                 <Button variant="sand" className="w-full mt-2">
                   Estimation gratuite
