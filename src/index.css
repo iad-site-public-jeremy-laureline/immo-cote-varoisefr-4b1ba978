@@ -21,8 +21,8 @@
     --secondary: 40 40% 60%;
     --secondary-foreground: 214 46% 20%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 215 10% 40%;
+    --muted: 40 15% 96%;
+    --muted-foreground: 215 10% 45%;
 
     --accent: 40 40% 60%;
     --accent-foreground: 214 46% 20%;
@@ -30,19 +30,19 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 87%;
-    --input: 0 0% 87%;
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
     --ring: 40 40% 60%;
 
-    --radius: 0.25rem;
+    --radius: 0.5rem;
 
     /* Custom tokens */
     --navy: 214 46% 20%;
-    --navy-deep: 214 50% 15%;
-    --sand: 37 38% 60%;
-    --sand-light: 34 60% 96%;
-    --sand-hover: 37 38% 70%;
-    --gray-light: 0 0% 96%;
+    --navy-deep: 214 52% 14%;
+    --sand: 37 45% 62%;
+    --sand-light: 38 50% 96%;
+    --sand-hover: 37 45% 55%;
+    --gray-light: 40 15% 96%;
     --blue-light: 220 40% 93%;
     --text-body: 0 0% 20%;
     --text-on-dark: 0 0% 100%;
@@ -50,9 +50,9 @@
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', system-ui, sans-serif;
 
-    --shadow-card: 0 4px 20px -4px hsl(214 46% 20% / 0.08);
-    --shadow-card-hover: 0 8px 30px -4px hsl(214 46% 20% / 0.15);
-    --shadow-nav: 0 2px 12px -2px hsl(214 46% 20% / 0.08);
+    --shadow-card: 0 4px 24px -4px hsl(214 46% 20% / 0.06);
+    --shadow-card-hover: 0 12px 40px -8px hsl(214 46% 20% / 0.14);
+    --shadow-nav: 0 2px 16px -2px hsl(214 46% 20% / 0.06);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -73,6 +73,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4 {
