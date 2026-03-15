@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logoJLWhite from "@/assets/logo-jl-white.png";
 
 const Footer = () => {
   return (
