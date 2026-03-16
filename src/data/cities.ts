@@ -22,6 +22,12 @@ import sanaryMarche from "@/assets/cities/sanary/marche.webp";
 import sanaryPlagePortissol from "@/assets/cities/sanary/plage-portissol.png";
 import sanaryPortAerien from "@/assets/cities/sanary/port-aerien.webp";
 import sanaryPort from "@/assets/cities/sanary/port-sanary.jpeg";
+import toulonCrique from "@/assets/cities/toulon/crique.jpg";
+import toulonFontaine from "@/assets/cities/toulon/fontaine.webp";
+import toulonMouillonAerien from "@/assets/cities/toulon/mouillon-aerien.jpg";
+import toulonMourillonPlage from "@/assets/cities/toulon/mourillon-plage.jpg";
+import toulonPort from "@/assets/cities/toulon/port-toulon.jpg";
+import toulonCentreHistorique from "@/assets/cities/toulon/centre-historique.jpg";
 
 export interface PriceSector {
   name: string;
@@ -259,6 +265,9 @@ export const cities: CityData[] = [
       { q: "Comment se passe une estimation à Toulon avec vous ?", a: "Nous nous déplaçons sous 48h à votre domicile. Après visite et analyse du marché de votre quartier, vous recevez notre avis de valeur détaillé — gratuitement." },
       { q: "Vous accompagnez aussi les achats de biens atypiques à Toulon ?", a: "Oui, lofts, maisons de ville, biens avec vue rade, immeubles de rapport... Nous traitons tous les types de biens avec le même professionnalisme." },
     ],
+    galleryImages: [toulonMouillonAerien, toulonMourillonPlage, toulonPort, toulonCentreHistorique, toulonFontaine, toulonCrique],
+    separatorImage2: toulonMouillonAerien,
+    separatorImage3: toulonCentreHistorique,
   },
   {
     slug: "la-seyne-sur-mer",
