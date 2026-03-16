@@ -152,6 +152,9 @@ export const cities: CityData[] = [
       { q: "Six-Fours est-elle bien desservie ?", a: "Oui, Six-Fours offre un accès rapide à Toulon (20 min), Sanary (10 min) et Bandol (15 min) par les axes routiers. La commune dispose également de sa propre gare SNCF." },
       { q: "Peut-on investir en locatif saisonnier à Six-Fours ?", a: "Le potentiel est réel, notamment dans les secteurs du Brusc et de la Coudoulière. Notre partenaire Ouikey peut prendre en charge la gestion de votre bien en location courte durée." },
     ],
+    galleryImages: [sixFoursGaou, sixFoursEmbiez, sixFoursPortBrusc, sixFoursCrique, sixFoursCoucherSoleil, sixFoursMoules],
+    separatorImage2: sixFoursGaou,
+    separatorImage3: sixFoursEmbiez,
   },
   {
     slug: "bandol",
