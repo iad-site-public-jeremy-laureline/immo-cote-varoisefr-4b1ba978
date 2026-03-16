@@ -204,6 +204,9 @@ export const cities: CityData[] = [
       { q: "Vous accompagnez aussi les achats de résidences secondaires à Bandol ?", a: "Absolument. Les résidences secondaires représentent une grande part du marché bandolais. Nous accompagnons aussi bien les acquéreurs locaux qu'étrangers." },
       { q: "Comment obtenir une estimation immobilière gratuite à Bandol ?", a: "Remplissez le formulaire en ligne ou appelez-nous. Nous nous déplaçons chez vous sous 48h pour une évaluation sur place, gratuite et sans engagement." },
     ],
+    galleryImages: [bandolCalanque, bandolCapitainerie, bandolBendor, bandolVillagePort, bandolPlageRenecros, bandolPort],
+    separatorImage2: bandolCalanque,
+    separatorImage3: bandolPlageRenecros,
   },
   {
     slug: "toulon",
