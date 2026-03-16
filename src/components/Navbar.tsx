@@ -66,19 +66,27 @@ const Navbar = () => {
         {/* Logo — integrated in navbar, slight overflow below */}
         <Link
           to="/"
-          className="relative z-[60] flex-shrink-0 transition-opacity hover:opacity-90"
+          className="relative z-[60] flex-shrink-0 flex items-center gap-2.5 transition-opacity hover:opacity-90"
         >
           <img
-            src={scrolled || !isHome ? logoJL : logoJLWhite}
-            alt="JL Immobilier Côte Varoise"
-            className="h-[100px] w-auto"
-            style={{
-              transform: "translateY(12px)",
-              filter: (scrolled || !isHome)
-                ? "drop-shadow(0 6px 14px rgba(27,46,75,0.16))"
-                : "drop-shadow(0 6px 14px rgba(0,0,0,0.26))",
-            }}
+            src={logoIcon}
+            alt="JL Immobilier"
+            className="h-[55px] w-auto"
           />
+          <div className="hidden sm:flex flex-col leading-none">
+            <span
+              className="text-[13px] font-bold tracking-[0.15em] uppercase"
+              style={{ color: scrolled || !isHome ? "#243A5A" : "#ffffff" }}
+            >
+              IMMOBILIER
+            </span>
+            <span
+              className="text-[10px] font-medium tracking-[0.12em] uppercase mt-0.5"
+              style={{ color: "#C8A46A" }}
+            >
+              CÔTE VAROISE
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
