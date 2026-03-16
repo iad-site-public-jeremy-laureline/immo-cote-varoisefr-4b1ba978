@@ -265,6 +265,9 @@ export const cities: CityData[] = [
       { q: "Comment se passe une estimation à Toulon avec vous ?", a: "Nous nous déplaçons sous 48h à votre domicile. Après visite et analyse du marché de votre quartier, vous recevez notre avis de valeur détaillé — gratuitement." },
       { q: "Vous accompagnez aussi les achats de biens atypiques à Toulon ?", a: "Oui, lofts, maisons de ville, biens avec vue rade, immeubles de rapport... Nous traitons tous les types de biens avec le même professionnalisme." },
     ],
+    galleryImages: [toulonMouillonAerien, toulonMourillonPlage, toulonPort, toulonCentreHistorique, toulonFontaine, toulonCrique],
+    separatorImage2: toulonMouillonAerien,
+    separatorImage3: toulonCentreHistorique,
   },
   {
     slug: "la-seyne-sur-mer",
