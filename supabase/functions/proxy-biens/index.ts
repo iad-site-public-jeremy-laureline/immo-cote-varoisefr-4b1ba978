@@ -1,11 +1,25 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
-
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3RQHcWn2WxpY5WPFy01Bjp21ntrfPLp1o1NJvNMxSTmg4nujZA4T156FW9KFsSi/exec?sheet=biens";
+
+async function fetchWithRedirects(url: string, maxRedirects = 5): Promise<Response> {
+  let currentUrl = url;
+  for (let i = 0; i < maxRedirects; i++) {
+    const res = await fetch(currentUrl, { redirect: 'manual' });
+    if (res.status >= 300 && res.status < 400) {
+      const location = res.headers.get('location');
+      if (!location) throw new Error('Redirect without location header');
+      currentUrl = location;
+      console.log(`Redirect ${i + 1} -> ${currentUrl}`);
+      continue;
+    }
+    return res;
+  }
+  throw new Error('Too many redirects');
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -14,16 +28,16 @@ Deno.serve(async (req) => {
 
   try {
     console.log("Fetching biens from Apps Script...");
-    const response = await fetch(APPS_SCRIPT_URL, {
-      headers: { 'Accept': 'application/json' },
-      redirect: 'follow',
-    });
+    const response = await fetchWithRedirects(APPS_SCRIPT_URL);
 
+    const text = await response.text();
+    console.log(`Status: ${response.status}, Body preview: ${text.substring(0, 500)}`);
+    
     if (!response.ok) {
-      throw new Error(`Apps Script returned ${response.status}`);
+      throw new Error(`Apps Script returned ${response.status}: ${text.substring(0, 200)}`);
     }
 
-    const data = await response.json();
+    const data = JSON.parse(text);
     console.log(`Received ${Array.isArray(data) ? data.length : 0} biens`);
 
     return new Response(JSON.stringify(data), {
