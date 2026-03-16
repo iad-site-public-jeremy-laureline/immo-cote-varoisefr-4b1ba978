@@ -1,3 +1,10 @@
+import laSeyneBalaguierAerien from "@/assets/cities/la-seyne/balaguier-aerien.jpg";
+import laSeyneTour from "@/assets/cities/la-seyne/tour-balaguier.jpg";
+import laSeynePort from "@/assets/cities/la-seyne/port-seyne.jpg";
+import laSeynePortColore from "@/assets/cities/la-seyne/port-coloré.jpg";
+import laSeyneCentreVille from "@/assets/cities/la-seyne/centre-ville.jpg";
+import laSeynePlage from "@/assets/cities/la-seyne/plage-sablettes.jpg";
+
 export interface PriceSector {
   name: string;
   description: string;
@@ -272,6 +279,9 @@ export const cities: CityData[] = [
       { q: "Vous gérez aussi les biens à louer à La Seyne-sur-Mer ?", a: "Pour la gestion locative courte durée, nous travaillons avec notre partenaire Ouikey qui intervient sur La Seyne et l'ensemble de la Côte Varoise." },
       { q: "Quelle est la différence entre acheter à La Seyne et à Six-Fours ?", a: "Six-Fours est plus premium et offre un littoral plus varié. La Seyne est plus accessible avec un fort potentiel de rattrapage des prix. Tout dépend de votre projet et de votre budget." },
     ],
+    galleryImages: [laSeyneBalaguierAerien, laSeyneTour, laSeynePortColore, laSeyneCentreVille, laSeynePlage, laSeynePort],
+    separatorImage2: laSeyneTour,
+    separatorImage3: laSeyneBalaguierAerien,
   },
   {
     slug: "ollioules",
