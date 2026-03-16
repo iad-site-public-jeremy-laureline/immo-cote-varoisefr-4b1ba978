@@ -79,6 +79,7 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(price);
 
 const Index = () => {
+  const { properties: dynamicProperties, loading: propertiesLoading } = useProperties();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [nextSlide, setNextSlide] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
