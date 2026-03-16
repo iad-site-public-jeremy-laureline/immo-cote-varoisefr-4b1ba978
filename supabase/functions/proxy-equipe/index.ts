@@ -3,7 +3,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3RQHcWn2WxpY5WPFy01Bjp21ntrfPLp1o1NJvNMxSTmg4nujZA4T156FW9KFsSi/exec?sheet=equipe";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrfZmhQtcOsYvaSNypq3_2lqYmL_KmJUxnQEAZ4G2KfWZe7Oc5hE2qa_jMSE7HhaXh/exec?sheet=equipe";
 
 async function fetchWithRedirects(url: string, maxRedirects = 5): Promise<Response> {
   let currentUrl = url;
