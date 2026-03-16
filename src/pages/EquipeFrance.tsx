@@ -95,6 +95,9 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
       <h3 className="font-display text-lg font-semibold text-navy mb-1">
         {member.prenom} {member.nom}
       </h3>
+      {member.secteur && (
+        <p className="text-sm text-muted-foreground font-medium mb-1">{member.secteur}</p>
+      )}
       <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-2">
         <MapPin size={13} className="text-sand shrink-0" />
         <span>{member.code_postal} {member.ville}</span>
