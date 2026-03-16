@@ -128,7 +128,7 @@ const NotreEquipe = () => {
                 Avec plus de 15 ans d'expérience dans l'immobilier, Laureline s'est imposée comme une référence sur le secteur de Sanary-sur-Mer et ses environs. Reconnue pour son professionnalisme, sa disponibilité et son sens du détail, elle accompagne ses clients à chaque étape de leur projet avec rigueur et bienveillance.
               </p>
               <p className="text-foreground/75 text-base leading-relaxed mb-6">
-                Bilingue français-anglais, elle intervient régulièrement auprès d'une clientèle internationale attirée par la Côte Varoise. Co-fondatrice de Ouikey, elle allie expertise transactionnelle et vision complète de la gestion immobilière.
+                Parlant anglais, elle intervient régulièrement auprès d'une clientèle internationale attirée par la Côte Varoise. Co-fondatrice de Ouikey, elle allie expertise transactionnelle et vision complète de la gestion immobilière.
               </p>
 
               {/* Badges */}
