@@ -16,6 +16,12 @@ import bandolBendor from "@/assets/cities/bandol/ile-bendor.jpg";
 import bandolVillagePort from "@/assets/cities/bandol/village-port.webp";
 import bandolPlageRenecros from "@/assets/cities/bandol/plage-renecros.jpg";
 import bandolPort from "@/assets/cities/bandol/port-bandol.jpg";
+import sanaryFeuArtifice from "@/assets/cities/sanary/feu-artifice.jpg";
+import sanaryIlluminations from "@/assets/cities/sanary/illuminations.jpg";
+import sanaryMarche from "@/assets/cities/sanary/marche.webp";
+import sanaryPlagePortissol from "@/assets/cities/sanary/plage-portissol.png";
+import sanaryPortAerien from "@/assets/cities/sanary/port-aerien.webp";
+import sanaryPort from "@/assets/cities/sanary/port-sanary.jpeg";
 
 export interface PriceSector {
   name: string;
@@ -112,6 +118,9 @@ export const cities: CityData[] = [
       { q: "Faut-il confier un mandat exclusif pour vendre à Sanary-sur-Mer ?", a: "Le mandat exclusif permet de concentrer les efforts sur votre bien et d'éviter la multiplicité des intervenants. Nous vous conseillons sur la stratégie la plus adaptée lors de notre rendez-vous." },
       { q: "Vous accompagnez aussi sur d'autres communes ?", a: "Oui, notre zone couvre Six-Fours-les-Plages, Bandol, Toulon, La Seyne-sur-Mer et Ollioules. Nous pouvons vous accompagner sur un projet multisite." },
     ],
+    galleryImages: [sanaryPort, sanaryPortAerien, sanaryPlagePortissol, sanaryMarche, sanaryIlluminations, sanaryFeuArtifice],
+    separatorImage2: sanaryPlagePortissol,
+    separatorImage3: sanaryIlluminations,
   },
   {
     slug: "six-fours-les-plages",
