@@ -125,7 +125,7 @@ const Index = () => {
     }, 3000);
   };
 
-  const visibleProperties = properties.filter(p => p.status !== "Sous compromis").slice(0, 6);
+  const visibleDynamic = dynamicProperties.slice(0, 6);
 
   return (
     <div>
