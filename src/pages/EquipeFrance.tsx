@@ -48,6 +48,7 @@ const mapRawMember = (raw: RawMember): TeamMember => ({
   telephone: raw.Telephone_mobile ? `0${String(raw.Telephone_mobile).replace(/^33/, "")}` : "",
   niveau: String(raw.Niveau || ""),
   qualification: raw.Qualification || "",
+  secteur: raw.Secteur_activite || "",
   code_postal: String(raw.Code_secteur ?? ""),
   ville: raw.Ville_de_rattachement ?? "",
   date_activation: raw.Date_activation || "",
