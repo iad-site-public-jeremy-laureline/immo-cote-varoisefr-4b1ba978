@@ -50,7 +50,7 @@ const mapRawMember = (raw: RawMember): TeamMember => ({
   qualification: raw.Qualification || "",
   secteur: raw.Secteur_activite || "",
   code_postal: String(raw.Code_secteur ?? ""),
-  ville: raw.Ville_de_rattachement ?? "",
+  ville: raw.Ville_de_rattachement || raw.Secteur_activite || "",
   date_activation: raw.Date_activation || "",
   photo: raw.Photo_de_profil || "",
   minisite: raw.Mini_site_iad || "",
