@@ -368,5 +368,8 @@ export const cities: CityData[] = [
       { q: "Y a-t-il des biens atypiques à Ollioules ?", a: "Oui, des mas provençaux, des bastides avec terrain, des maisons de village rénovées... C'est précisément ce type de biens qui attire une clientèle de plus en plus exigeante. Nous les valorisons avec soin." },
       { q: "Ollioules a-t-elle un potentiel de revente intéressant ?", a: "Oui. Les prix bas actuels et la tendance haussière offrent un potentiel de plus-value réel sur 5 à 10 ans, d'autant que la commune bénéficie de projets de revalorisation de son centre-village." },
     ],
+    galleryImages: [ollioulesVillagePanorama, ollioulesVueAerienne, ollioulesChatea, ollioulesTourHorloge, ollioulesChclocher, ollioulesRuelleFleurie],
+    separatorImage2: ollioulesChatea,
+    separatorImage3: ollioulesVueAerienne,
   },
 ];
