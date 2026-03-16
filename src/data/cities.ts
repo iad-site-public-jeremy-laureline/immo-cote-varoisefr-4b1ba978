@@ -4,6 +4,12 @@ import laSeynePort from "@/assets/cities/la-seyne/port-seyne.jpg";
 import laSeynePortColore from "@/assets/cities/la-seyne/port-coloré.jpg";
 import laSeyneCentreVille from "@/assets/cities/la-seyne/centre-ville.jpg";
 import laSeynePlage from "@/assets/cities/la-seyne/plage-sablettes.jpg";
+import sixFoursMoules from "@/assets/cities/six-fours/moules.jpg";
+import sixFoursCrique from "@/assets/cities/six-fours/crique.jpg";
+import sixFoursCoucherSoleil from "@/assets/cities/six-fours/coucher-soleil.webp";
+import sixFoursEmbiez from "@/assets/cities/six-fours/ile-embiez.webp";
+import sixFoursGaou from "@/assets/cities/six-fours/ile-gaou.webp";
+import sixFoursPortBrusc from "@/assets/cities/six-fours/port-brusc.jpeg";
 
 export interface PriceSector {
   name: string;
@@ -146,6 +152,9 @@ export const cities: CityData[] = [
       { q: "Six-Fours est-elle bien desservie ?", a: "Oui, Six-Fours offre un accès rapide à Toulon (20 min), Sanary (10 min) et Bandol (15 min) par les axes routiers. La commune dispose également de sa propre gare SNCF." },
       { q: "Peut-on investir en locatif saisonnier à Six-Fours ?", a: "Le potentiel est réel, notamment dans les secteurs du Brusc et de la Coudoulière. Notre partenaire Ouikey peut prendre en charge la gestion de votre bien en location courte durée." },
     ],
+    galleryImages: [sixFoursGaou, sixFoursEmbiez, sixFoursPortBrusc, sixFoursCrique, sixFoursCoucherSoleil, sixFoursMoules],
+    separatorImage2: sixFoursGaou,
+    separatorImage3: sixFoursEmbiez,
   },
   {
     slug: "bandol",
