@@ -1,51 +1,62 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Search, X, Users, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { MapPin, Search, Loader2, Home, LayoutGrid } from "lucide-react";
 import { useProperties } from "@/hooks/useProperties";
 import PropertyCard from "@/components/PropertyCard";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const NosBiens = () => {
   const { properties, loading, error } = useProperties();
-  const [cityFilter, setCityFilter] = useState("Tous");
+  const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("Tous");
-  const [conseillerFilter, setConseillerFilter] = useState("Tous");
+  const [piecesFilter, setPiecesFilter] = useState("Tous");
 
   useEffect(() => {
     document.title = "Nos Biens Disponibles — Jérémy et Laureline Immobilier";
   }, []);
 
-  // Dynamic filter options from data
-  const cities = useMemo(() => {
-    const unique = [...new Set(properties.map((p) => p.ville).filter(Boolean))].sort();
-    return ["Tous", ...unique];
-  }, [properties]);
+  // Extract clean type from the raw "Ville" field (e.g. "appartement à Toulon..." → "Appartement")
+  const getCleanType = (p: { ville: string; titre: string }) => {
+    const src = (p.ville || p.titre).toLowerCase();
+    if (src.includes("maison")) return "Maison";
+    if (src.includes("appartement") || src.includes("studio")) return "Appartement";
+    if (src.includes("terrain")) return "Terrain";
+    if (src.includes("boutique") || src.includes("local") || src.includes("commercial")) return "Local commercial";
+    return "Autre";
+  };
 
   const types = useMemo(() => {
-    const unique = [...new Set(properties.map((p) => p.type).filter(Boolean))].sort();
+    const unique = [...new Set(properties.map(getCleanType))].sort();
     return ["Tous", ...unique];
   }, [properties]);
 
-  const conseillers = useMemo(() => {
-    const unique = [...new Set(properties.map((p) => p.conseiller).filter(Boolean))].sort();
-    return ["Tous", ...unique];
-  }, [properties]);
+  const piecesOptions = ["Tous", "1", "2", "3", "4", "5+"];
 
   const filtered = useMemo(() => {
     return properties.filter((p) => {
-      if (cityFilter !== "Tous" && p.ville !== cityFilter) return false;
-      if (typeFilter !== "Tous" && p.type !== typeFilter) return false;
-      if (conseillerFilter !== "Tous" && p.conseiller !== conseillerFilter) return false;
+      // Search filter
+      if (search) {
+        const q = search.toLowerCase().trim();
+        const searchable = `${p.ville} ${p.titre} ${p.description} ${p.type}`.toLowerCase();
+        if (!searchable.includes(q)) return false;
+      }
+      // Type filter
+      if (typeFilter !== "Tous" && getCleanType(p) !== typeFilter) return false;
+      // Pieces filter
+      if (piecesFilter !== "Tous") {
+        const pieces = p.pieces;
+        if (piecesFilter === "5+") {
+          if (!pieces || pieces < 5) return false;
+        } else {
+          if (pieces !== Number(piecesFilter)) return false;
+        }
+      }
       return true;
     });
-  }, [properties, cityFilter, typeFilter, conseillerFilter]);
+  }, [properties, search, typeFilter, piecesFilter]);
 
-  const activeFilters = [cityFilter, typeFilter, conseillerFilter].filter((f) => f !== "Tous").length;
-
-  const clearAll = () => {
-    setCityFilter("Tous");
-    setTypeFilter("Tous");
-    setConseillerFilter("Tous");
-  };
+  const hasActiveFilters = search || typeFilter !== "Tous" || piecesFilter !== "Tous";
 
   return (
     <div className="pt-[70px]">
@@ -102,72 +113,47 @@ const NosBiens = () => {
       {/* Filters */}
       <section className="bg-card/80 backdrop-blur-md border-b border-border/50 sticky top-[70px] z-40">
         <div className="container-narrow mx-auto px-4 md:px-8 py-4">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-              {/* City */}
-              <FilterGroup icon={<MapPin className="h-3.5 w-3.5" />} label="Ville">
-                {cities.map((city) => (
-                  <FilterButton key={city} active={cityFilter === city} onClick={() => setCityFilter(city)}>
-                    {city}
-                  </FilterButton>
-                ))}
-              </FilterGroup>
-
-              <div className="hidden lg:block w-px h-6 bg-border/60" />
-
-              {/* Type */}
-              <FilterGroup icon={<Search className="h-3.5 w-3.5" />} label="Type">
-                {types.map((type) => (
-                  <FilterButton key={type} active={typeFilter === type} onClick={() => setTypeFilter(type)}>
-                    {type}
-                  </FilterButton>
-                ))}
-              </FilterGroup>
-
-              <div className="hidden lg:block w-px h-6 bg-border/60" />
-
-              {/* Conseiller */}
-              <FilterGroup icon={<Users className="h-3.5 w-3.5" />} label="Conseiller">
-                {conseillers.map((c) => (
-                  <FilterButton key={c} active={conseillerFilter === c} onClick={() => setConseillerFilter(c)}>
-                    {c}
-                  </FilterButton>
-                ))}
-              </FilterGroup>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Search bar */}
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Rechercher par ville, code postal, type…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9"
+              />
             </div>
 
-            {/* Active filters summary */}
-            <AnimatePresence>
-              {activeFilters > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="flex items-center gap-2 pt-2 border-t border-border/40"
-                >
-                  <span className="text-xs text-muted-foreground">
-                    {filtered.length} résultat{filtered.length > 1 ? "s" : ""}
-                  </span>
-                  <div className="flex gap-1.5 flex-wrap">
-                    {cityFilter !== "Tous" && (
-                      <ActiveTag label={cityFilter} onRemove={() => setCityFilter("Tous")} />
-                    )}
-                    {typeFilter !== "Tous" && (
-                      <ActiveTag label={typeFilter} onRemove={() => setTypeFilter("Tous")} />
-                    )}
-                    {conseillerFilter !== "Tous" && (
-                      <ActiveTag label={conseillerFilter} onRemove={() => setConseillerFilter("Tous")} />
-                    )}
-                  </div>
-                  <button
-                    onClick={clearAll}
-                    className="ml-auto text-xs text-muted-foreground hover:text-primary font-medium transition-colors"
-                  >
-                    Tout effacer
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Type dropdown */}
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger className="w-full sm:w-[180px] gap-2">
+                <Home size={14} className="text-muted-foreground shrink-0" />
+                <SelectValue placeholder="Type de bien" />
+              </SelectTrigger>
+              <SelectContent>
+                {types.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {t === "Tous" ? "Tous les types" : t}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Pieces dropdown */}
+            <Select value={piecesFilter} onValueChange={setPiecesFilter}>
+              <SelectTrigger className="w-full sm:w-[180px] gap-2">
+                <LayoutGrid size={14} className="text-muted-foreground shrink-0" />
+                <SelectValue placeholder="Nombre de pièces" />
+              </SelectTrigger>
+              <SelectContent>
+                {piecesOptions.map((p) => (
+                  <SelectItem key={p} value={p}>
+                    {p === "Tous" ? "Toutes les pièces" : p === "5+" ? "5 pièces et +" : `${p} pièce${Number(p) > 1 ? "s" : ""}`}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </section>
@@ -195,13 +181,12 @@ const NosBiens = () => {
             </motion.div>
           ) : (
             <>
-              {activeFilters === 0 && (
-                <div className="mb-8">
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">{filtered.length}</span> bien{filtered.length > 1 ? "s" : ""} disponible{filtered.length > 1 ? "s" : ""}
-                  </p>
-                </div>
-              )}
+              <div className="mb-8">
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">{filtered.length}</span> bien{filtered.length > 1 ? "s" : ""}{" "}
+                  {hasActiveFilters ? "trouvé" : "disponible"}{filtered.length > 1 ? "s" : ""}
+                </p>
+              </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
                 {filtered.map((property, i) => (
                   <PropertyCard key={property.reference || i} property={property} index={i} />
@@ -214,43 +199,5 @@ const NosBiens = () => {
     </div>
   );
 };
-
-/* ── Subcomponents ── */
-
-function FilterGroup({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground shrink-0 inline-flex items-center gap-1">
-        {icon}
-        {label}
-      </span>
-      <div className="flex flex-wrap gap-1.5">{children}</div>
-    </div>
-  );
-}
-
-function FilterButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-        active
-          ? "bg-primary text-primary-foreground shadow-sm"
-          : "text-foreground/60 hover:text-primary hover:bg-muted"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
-function ActiveTag({ label, onRemove }: { label: string; onRemove: () => void }) {
-  return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/15 text-secondary text-xs font-medium">
-      {label}
-      <X className="h-3 w-3 cursor-pointer hover:text-primary transition-colors" onClick={onRemove} />
-    </span>
-  );
-}
 
 export default NosBiens;
