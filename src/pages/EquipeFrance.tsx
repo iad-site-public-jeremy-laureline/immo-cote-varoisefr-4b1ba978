@@ -4,35 +4,31 @@ import { motion } from "framer-motion";
 import { Search, MapPin, Phone, ExternalLink, Users, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// ⚠️ Replace with your Google Apps Script API URL
-const API_URL = "https://script.google.com/macros/s/AKfycbz8Wv7c0F5Agh91i_gjg2e8Ig12snZft6_BTFxzQDLYxTSA5qRuggBTrCwmTRZ9VR2f/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbw3RQHcWn2WxpY5WPFy01Bjp21ntrfPLp1o1NJvNMxSTmg4nujZA4T156FW9KFsSi/exec?sheet=equipe";
 
 interface RawMember {
-  ID: number;
+  Id: number;
   Nom: string;
-  Prénom: string;
-  Filiale: string;
-  "E-mail professionnel": string;
-  "Téléphone mobile": number;
+  Prenom: string;
+  Initiale: string;
+  Email_professionnel: string;
+  Telephone_mobile: string | number;
   Niveau: number;
   Qualification: string;
-  "Secteur d'activité (code postal)"?: number;
-  "Secteur d’activité (code postal)"?: number;
-  "Secteur d'activité (ville)"?: string;
-  "Secteur d’activité (ville)"?: string;
-  "Date d'activation": string;
-  "Photo de profil": string;
-  "Mini site iad": string;
+  Secteur_activite: string;
+  Code_secteur: string | number;
+  Ville_de_rattachement: string;
+  Date_activation: string;
+  Photo_de_profil: string;
+  Mini_site_iad: string;
 }
 
 interface TeamMember {
   id: string;
   nom: string;
   prenom: string;
-  filiale: string;
   email: string;
   telephone: string;
   niveau: string;
@@ -45,19 +41,18 @@ interface TeamMember {
 }
 
 const mapRawMember = (raw: RawMember): TeamMember => ({
-  id: String(raw.ID),
+  id: String(raw.Id),
   nom: raw.Nom || "",
-  prenom: raw.Prénom || "",
-  filiale: raw.Filiale || "",
-  email: raw["E-mail professionnel"] || "",
-  telephone: raw["Téléphone mobile"] ? `0${String(raw["Téléphone mobile"]).replace(/^33/, "")}` : "",
+  prenom: raw.Prenom || "",
+  email: raw.Email_professionnel || "",
+  telephone: raw.Telephone_mobile ? `0${String(raw.Telephone_mobile).replace(/^33/, "")}` : "",
   niveau: String(raw.Niveau || ""),
   qualification: raw.Qualification || "",
-  code_postal: String(raw["Secteur d’activité (code postal)"] ?? raw["Secteur d'activité (code postal)"] ?? ""),
-  ville: raw["Secteur d’activité (ville)"] ?? raw["Secteur d'activité (ville)"] ?? "",
-  date_activation: raw["Date d'activation"] || "",
-  photo: raw["Photo de profil"] || "",
-  minisite: raw["Mini site iad"] || "",
+  code_postal: String(raw.Code_secteur ?? ""),
+  ville: raw.Ville_de_rattachement ?? "",
+  date_activation: raw.Date_activation || "",
+  photo: raw.Photo_de_profil || "",
+  minisite: raw.Mini_site_iad || "",
 });
 
 const fadeUp = {
@@ -146,7 +141,6 @@ const EquipeFrance = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
-  
 
   useEffect(() => {
     document.title = "Équipe française — Nos conseillers immobiliers en France";
@@ -206,21 +200,20 @@ const EquipeFrance = () => {
       <section className="bg-background border-b border-border sticky top-[70px] z-40">
         <div className="container-narrow mx-auto px-4 md:px-8 py-4">
           <div className="relative flex-1">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Rechercher par nom, ville ou code postal…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9"
-              />
-            </div>
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Rechercher par nom, ville ou code postal…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9"
+            />
+          </div>
         </div>
       </section>
 
       {/* Results */}
       <section className="bg-gray-light section-padding">
         <div className="container-narrow mx-auto px-4 md:px-8">
-          {/* Count */}
           <div className="flex items-center gap-2 mb-8 text-muted-foreground text-sm">
             <Users size={16} />
             <span>
@@ -251,11 +244,7 @@ const EquipeFrance = () => {
             <div className="text-center py-16">
               <User size={48} className="mx-auto mb-4 text-muted-foreground/30" />
               <p className="text-muted-foreground text-lg">Aucun conseiller ne correspond à votre recherche.</p>
-              <Button
-                variant="ghost"
-                className="mt-4"
-                onClick={() => setSearch("")}
-              >
+              <Button variant="ghost" className="mt-4" onClick={() => setSearch("")}>
                 Réinitialiser les filtres
               </Button>
             </div>
