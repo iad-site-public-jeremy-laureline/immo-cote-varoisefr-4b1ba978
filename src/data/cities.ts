@@ -10,6 +10,12 @@ import sixFoursCoucherSoleil from "@/assets/cities/six-fours/coucher-soleil.webp
 import sixFoursEmbiez from "@/assets/cities/six-fours/ile-embiez.webp";
 import sixFoursGaou from "@/assets/cities/six-fours/ile-gaou.webp";
 import sixFoursPortBrusc from "@/assets/cities/six-fours/port-brusc.jpeg";
+import bandolCalanque from "@/assets/cities/bandol/calanque.jpeg";
+import bandolCapitainerie from "@/assets/cities/bandol/capitainerie.jpg";
+import bandolBendor from "@/assets/cities/bandol/ile-bendor.jpg";
+import bandolVillagePort from "@/assets/cities/bandol/village-port.webp";
+import bandolPlageRenecros from "@/assets/cities/bandol/plage-renecros.jpg";
+import bandolPort from "@/assets/cities/bandol/port-bandol.jpg";
 
 export interface PriceSector {
   name: string;
@@ -198,6 +204,9 @@ export const cities: CityData[] = [
       { q: "Vous accompagnez aussi les achats de résidences secondaires à Bandol ?", a: "Absolument. Les résidences secondaires représentent une grande part du marché bandolais. Nous accompagnons aussi bien les acquéreurs locaux qu'étrangers." },
       { q: "Comment obtenir une estimation immobilière gratuite à Bandol ?", a: "Remplissez le formulaire en ligne ou appelez-nous. Nous nous déplaçons chez vous sous 48h pour une évaluation sur place, gratuite et sans engagement." },
     ],
+    galleryImages: [bandolCalanque, bandolCapitainerie, bandolBendor, bandolVillagePort, bandolPlageRenecros, bandolPort],
+    separatorImage2: bandolCalanque,
+    separatorImage3: bandolPlageRenecros,
   },
   {
     slug: "toulon",
