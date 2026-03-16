@@ -77,7 +77,7 @@ const NotreEquipe = () => {
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
                 <p className="flex items-center gap-2"><MapPin size={14} className="text-sand" /> Six-Fours-les-Plages (83140)</p>
                 <p className="flex items-center gap-2"><Globe size={14} className="text-sand" /> Parle : Français</p>
-                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Melun n°797 411 832</p>
+                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Toulon n°797 411 832</p>
               </div>
 
               <Link to="/contact">
@@ -128,7 +128,7 @@ const NotreEquipe = () => {
                 Avec plus de 15 ans d'expérience dans l'immobilier, Laureline s'est imposée comme une référence sur le secteur de Sanary-sur-Mer et ses environs. Reconnue pour son professionnalisme, sa disponibilité et son sens du détail, elle accompagne ses clients à chaque étape de leur projet avec rigueur et bienveillance.
               </p>
               <p className="text-foreground/75 text-base leading-relaxed mb-6">
-                Bilingue français-anglais, elle intervient régulièrement auprès d'une clientèle internationale attirée par la Côte Varoise. Co-fondatrice de Ouikey, elle allie expertise transactionnelle et vision complète de la gestion immobilière.
+                Parlant anglais, elle intervient régulièrement auprès d'une clientèle internationale attirée par la Côte Varoise. Co-fondatrice de Ouikey, elle allie expertise transactionnelle et vision complète de la gestion immobilière.
               </p>
 
               {/* Badges */}
@@ -147,7 +147,7 @@ const NotreEquipe = () => {
                   <Globe size={14} className="text-sand" /> Parle : Français ·{" "}
                   <span className="bg-sand/20 text-navy px-2 py-0.5 rounded text-xs font-medium">Anglais</span>
                 </p>
-                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Melun n°819 657 271</p>
+                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Toulon n°819 657 271</p>
               </div>
 
               <Link to="/contact">
