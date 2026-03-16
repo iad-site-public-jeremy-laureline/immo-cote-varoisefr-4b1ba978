@@ -118,6 +118,9 @@ export const cities: CityData[] = [
       { q: "Faut-il confier un mandat exclusif pour vendre à Sanary-sur-Mer ?", a: "Le mandat exclusif permet de concentrer les efforts sur votre bien et d'éviter la multiplicité des intervenants. Nous vous conseillons sur la stratégie la plus adaptée lors de notre rendez-vous." },
       { q: "Vous accompagnez aussi sur d'autres communes ?", a: "Oui, notre zone couvre Six-Fours-les-Plages, Bandol, Toulon, La Seyne-sur-Mer et Ollioules. Nous pouvons vous accompagner sur un projet multisite." },
     ],
+    galleryImages: [sanaryPort, sanaryPortAerien, sanaryPlagePortissol, sanaryMarche, sanaryIlluminations, sanaryFeuArtifice],
+    separatorImage2: sanaryPlagePortissol,
+    separatorImage3: sanaryIlluminations,
   },
   {
     slug: "six-fours-les-plages",
