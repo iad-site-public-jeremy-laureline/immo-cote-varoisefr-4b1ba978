@@ -547,10 +547,10 @@ const Index = () => {
             ))}
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-            <a href="https://www.immodvisor.com" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
+            <a href="https://www.immodvisor.com/professionnels/mandataire-immobilier/pro/iad-france-jeremy-vieira-17902" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
               Voir tous les avis Jérémy →
             </a>
-            <a href="https://www.immodvisor.com" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
+            <a href="https://www.immodvisor.com/professionnels/mandataire-immobilier/pro/iad-france-laureline-loheac-17324" target="_blank" rel="noopener noreferrer" className="text-sm text-sand hover:underline font-medium">
               Voir tous les avis Laureline →
             </a>
           </div>
