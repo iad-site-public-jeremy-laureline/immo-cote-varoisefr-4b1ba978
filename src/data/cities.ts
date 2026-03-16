@@ -22,6 +22,12 @@ import sanaryMarche from "@/assets/cities/sanary/marche.webp";
 import sanaryPlagePortissol from "@/assets/cities/sanary/plage-portissol.png";
 import sanaryPortAerien from "@/assets/cities/sanary/port-aerien.webp";
 import sanaryPort from "@/assets/cities/sanary/port-sanary.jpeg";
+import toulonCrique from "@/assets/cities/toulon/crique.jpg";
+import toulonFontaine from "@/assets/cities/toulon/fontaine.webp";
+import toulonMouillonAerien from "@/assets/cities/toulon/mouillon-aerien.jpg";
+import toulonMourillonPlage from "@/assets/cities/toulon/mourillon-plage.jpg";
+import toulonPort from "@/assets/cities/toulon/port-toulon.jpg";
+import toulonCentreHistorique from "@/assets/cities/toulon/centre-historique.jpg";
 
 export interface PriceSector {
   name: string;
