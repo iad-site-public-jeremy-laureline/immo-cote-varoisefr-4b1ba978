@@ -4,6 +4,12 @@ import laSeynePort from "@/assets/cities/la-seyne/port-seyne.jpg";
 import laSeynePortColore from "@/assets/cities/la-seyne/port-coloré.jpg";
 import laSeyneCentreVille from "@/assets/cities/la-seyne/centre-ville.jpg";
 import laSeynePlage from "@/assets/cities/la-seyne/plage-sablettes.jpg";
+import sixFoursMoules from "@/assets/cities/six-fours/moules.jpg";
+import sixFoursCrique from "@/assets/cities/six-fours/crique.jpg";
+import sixFoursCoucherSoleil from "@/assets/cities/six-fours/coucher-soleil.webp";
+import sixFoursEmbiez from "@/assets/cities/six-fours/ile-embiez.webp";
+import sixFoursGaou from "@/assets/cities/six-fours/ile-gaou.webp";
+import sixFoursPortBrusc from "@/assets/cities/six-fours/port-brusc.jpeg";
 
 export interface PriceSector {
   name: string;
