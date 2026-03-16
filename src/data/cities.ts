@@ -16,6 +16,12 @@ import bandolBendor from "@/assets/cities/bandol/ile-bendor.jpg";
 import bandolVillagePort from "@/assets/cities/bandol/village-port.webp";
 import bandolPlageRenecros from "@/assets/cities/bandol/plage-renecros.jpg";
 import bandolPort from "@/assets/cities/bandol/port-bandol.jpg";
+import sanaryFeuArtifice from "@/assets/cities/sanary/feu-artifice.jpg";
+import sanaryIlluminations from "@/assets/cities/sanary/illuminations.jpg";
+import sanaryMarche from "@/assets/cities/sanary/marche.webp";
+import sanaryPlagePortissol from "@/assets/cities/sanary/plage-portissol.png";
+import sanaryPortAerien from "@/assets/cities/sanary/port-aerien.webp";
+import sanaryPort from "@/assets/cities/sanary/port-sanary.jpeg";
 
 export interface PriceSector {
   name: string;
