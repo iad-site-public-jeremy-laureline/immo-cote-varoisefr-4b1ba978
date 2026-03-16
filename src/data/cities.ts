@@ -28,6 +28,12 @@ import toulonMouillonAerien from "@/assets/cities/toulon/mouillon-aerien.jpg";
 import toulonMourillonPlage from "@/assets/cities/toulon/mourillon-plage.jpg";
 import toulonPort from "@/assets/cities/toulon/port-toulon.jpg";
 import toulonCentreHistorique from "@/assets/cities/toulon/centre-historique.jpg";
+import ollioulesVillagePanorama from "@/assets/cities/ollioules/village-panorama.jpeg";
+import ollioulesChclocher from "@/assets/cities/ollioules/clocher.jpg";
+import ollioulesRuelleFleurie from "@/assets/cities/ollioules/ruelle-fleurie.jpg";
+import ollioulesChatea from "@/assets/cities/ollioules/chateau.webp";
+import ollioulesTourHorloge from "@/assets/cities/ollioules/tour-horloge.jpg";
+import ollioulesVueAerienne from "@/assets/cities/ollioules/vue-aerienne.jpg";
 
 export interface PriceSector {
   name: string;
