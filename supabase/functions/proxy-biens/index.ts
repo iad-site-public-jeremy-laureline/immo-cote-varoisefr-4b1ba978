@@ -30,12 +30,14 @@ Deno.serve(async (req) => {
     console.log("Fetching biens from Apps Script...");
     const response = await fetchWithRedirects(APPS_SCRIPT_URL);
 
+    const text = await response.text();
+    console.log(`Status: ${response.status}, Body preview: ${text.substring(0, 500)}`);
+    
     if (!response.ok) {
-      console.error(`Status: ${response.status}, Body: ${await response.text()}`);
-      throw new Error(`Apps Script returned ${response.status}`);
+      throw new Error(`Apps Script returned ${response.status}: ${text.substring(0, 200)}`);
     }
 
-    const data = await response.json();
+    const data = JSON.parse(text);
     console.log(`Received ${Array.isArray(data) ? data.length : 0} biens`);
 
     return new Response(JSON.stringify(data), {
