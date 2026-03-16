@@ -5,44 +5,47 @@ const corsHeaders = {
 
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrfZmhQtcOsYvaSNypq3_2lqYmL_KmJUxnQEAZ4G2KfWZe7Oc5hE2qa_jMSE7HhaXh/exec?sheet=equipe";
 
-async function fetchWithRedirects(url: string, maxRedirects = 5): Promise<Response> {
-  let currentUrl = url;
-  for (let i = 0; i < maxRedirects; i++) {
-    const res = await fetch(currentUrl, { redirect: 'manual' });
-    if (res.status >= 300 && res.status < 400) {
-      const location = res.headers.get('location');
-      if (!location) throw new Error('Redirect without location header');
-      currentUrl = location;
-      console.log(`Redirect ${i + 1} -> ${currentUrl}`);
-      continue;
-    }
-    return res;
-  }
-  throw new Error('Too many redirects');
-}
-
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    console.log("Fetching equipe from Apps Script...");
-    const response = await fetchWithRedirects(APPS_SCRIPT_URL);
+    console.log("Fetching equipe...");
+    
+    const initial = await fetch(APPS_SCRIPT_URL, {
+      redirect: 'manual',
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+    });
+    
+    let finalUrl = APPS_SCRIPT_URL;
+    if (initial.status >= 300 && initial.status < 400) {
+      finalUrl = initial.headers.get('location') || APPS_SCRIPT_URL;
+      console.log(`Redirected to: ${finalUrl}`);
+    }
+    
+    const response = await fetch(finalUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0',
+        'Accept': 'application/json',
+      },
+    });
 
+    const text = await response.text();
+    console.log(`Status: ${response.status}, Length: ${text.length}`);
+    
     if (!response.ok) {
-      console.error(`Status: ${response.status}, Body: ${await response.text()}`);
       throw new Error(`Apps Script returned ${response.status}`);
     }
 
-    const data = await response.json();
-    console.log(`Received ${Array.isArray(data) ? data.length : 0} members`);
+    const data = JSON.parse(text);
+    console.log(`Parsed ${Array.isArray(data) ? data.length : 0} members`);
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error("Error fetching equipe:", error);
+    console.error("Error:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
