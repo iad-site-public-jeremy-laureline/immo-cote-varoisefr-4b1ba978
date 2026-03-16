@@ -3,7 +3,33 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrfZmhQtcOsYvaSNypq3_2lqYmL_KmJUxnQEAZ4G2KfWZe7Oc5hE2qa_jMSE7HhaXh/exec?sheet=biens";
+const BASE_URL = "https://script.google.com/macros/s/AKfycbzrfZmhQtcOsYvaSNypq3_2lqYmL_KmJUxnQEAZ4G2KfWZe7Oc5hE2qa_jMSE7HhaXh/exec";
+
+async function followRedirects(url: string): Promise<string> {
+  let currentUrl = url;
+  for (let i = 0; i < 10; i++) {
+    const res = await fetch(currentUrl, {
+      method: 'GET',
+      redirect: 'manual',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+    });
+    console.log(`Step ${i}: ${currentUrl} -> ${res.status}`);
+    if (res.status >= 300 && res.status < 400) {
+      const loc = res.headers.get('location');
+      if (loc) {
+        currentUrl = loc;
+        continue;
+      }
+    }
+    // Final response - read body
+    const text = await res.text();
+    return text;
+  }
+  throw new Error('Too many redirects');
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -11,38 +37,9 @@ Deno.serve(async (req) => {
   }
 
   try {
-    console.log("Fetching biens...");
-    
-    // First request to get the redirect URL
-    const initial = await fetch(APPS_SCRIPT_URL, {
-      redirect: 'manual',
-      headers: { 'User-Agent': 'Mozilla/5.0' },
-    });
-    
-    let finalUrl = APPS_SCRIPT_URL;
-    if (initial.status >= 300 && initial.status < 400) {
-      finalUrl = initial.headers.get('location') || APPS_SCRIPT_URL;
-      console.log(`Redirected to: ${finalUrl}`);
-    }
-    
-    // Follow the redirect
-    const response = await fetch(finalUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-        'Accept': 'application/json',
-      },
-    });
-
-    const text = await response.text();
-    console.log(`Status: ${response.status}, Length: ${text.length}`);
-    
-    if (!response.ok) {
-      throw new Error(`Apps Script returned ${response.status}`);
-    }
-
+    const text = await followRedirects(`${BASE_URL}?sheet=biens`);
     const data = JSON.parse(text);
-    console.log(`Parsed ${Array.isArray(data) ? data.length : 0} biens`);
-
+    console.log(`OK: ${Array.isArray(data) ? data.length : 0} biens`);
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
