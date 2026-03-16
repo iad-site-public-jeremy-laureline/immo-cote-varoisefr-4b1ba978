@@ -117,14 +117,15 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
   </motion.div>
 );
 
-const CardSkeleton = () => (
-  <div className="bg-card rounded-xl border border-border overflow-hidden">
-    <Skeleton className="aspect-[3/4] w-full" />
-    <div className="p-5 space-y-3">
-      <Skeleton className="h-5 w-3/4" />
-      <Skeleton className="h-4 w-1/2" />
-      <Skeleton className="h-4 w-2/3" />
-      <Skeleton className="h-10 w-full mt-2" />
+const LoadingState = () => (
+  <div className="flex flex-col items-center justify-center py-24 gap-5">
+    <div className="relative">
+      <div className="w-16 h-16 rounded-full border-4 border-muted" />
+      <div className="absolute inset-0 w-16 h-16 rounded-full border-4 border-transparent border-t-sand animate-spin" />
+    </div>
+    <div className="text-center">
+      <p className="font-display text-lg text-navy font-medium">Chargement de l'équipe…</p>
+      <p className="text-sm text-muted-foreground mt-1">Récupération des profils en cours</p>
     </div>
   </div>
 );
