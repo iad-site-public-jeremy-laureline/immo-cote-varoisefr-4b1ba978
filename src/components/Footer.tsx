@@ -22,9 +22,11 @@ const Footer = () => {
             <p className="text-primary-foreground/70 text-sm mt-3">
               📞 Disponibles 7j/7 · 9h–20h
             </p>
-            <p className="text-primary-foreground/50 text-xs mt-4">
-              <a href="#" className="text-sand hover:underline">Facebook</a>
-            </p>
+            <div className="flex items-center gap-3 mt-4 text-xs">
+              <a href="https://www.facebook.com/vieira.jeremy/?viewas=100000686899395" target="_blank" rel="noopener noreferrer" className="text-sand hover:underline">FB Jérémy</a>
+              <span className="text-primary-foreground/30">·</span>
+              <a href="https://www.facebook.com/profile.php?id=100011654952661" target="_blank" rel="noopener noreferrer" className="text-sand hover:underline">FB Laureline</a>
+            </div>
           </div>
 
           {/* Col 2 — Navigation */}
