@@ -9,8 +9,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Col 1 — Identity */}
           <div>
-            <Link to="/">
-              <img src={logoJLWhite} alt="JL Immobilier Côte Varoise" className="h-16 w-auto mb-3" />
+            <Link to="/" className="flex items-center gap-2.5">
+              <img src={logoIcon} alt="JL Immobilier" className="h-12 w-auto" />
+              <div className="flex flex-col leading-none">
+                <span className="text-[12px] font-bold tracking-[0.15em] uppercase text-primary-foreground">IMMOBILIER</span>
+                <span className="text-[9px] font-medium tracking-[0.12em] uppercase mt-0.5 text-sand">CÔTE VAROISE</span>
+              </div>
             </Link>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
               Conseillers immobiliers indépendants · Côte Varoise
