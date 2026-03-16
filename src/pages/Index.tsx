@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useProperties } from "@/hooks/useProperties";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
