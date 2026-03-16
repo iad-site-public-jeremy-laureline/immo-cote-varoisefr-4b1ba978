@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 
 // ⚠️ Replace with your Google Apps Script API URL
-const API_URL = "https://script.google.com/macros/s/AKfycbxS_PObPQd3m8MgjVZtOgMRYiJjJroaab1sIk514Nty6dpjLyesI2idJWW245eHbbZ1/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbz8Wv7c0F5Agh91i_gjg2e8Ig12snZft6_BTFxzQDLYxTSA5qRuggBTrCwmTRZ9VR2f/exec";
 
 interface RawMember {
   ID: number;
