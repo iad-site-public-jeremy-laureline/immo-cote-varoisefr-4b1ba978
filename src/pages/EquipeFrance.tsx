@@ -5,8 +5,7 @@ import { Search, MapPin, Phone, ExternalLink, Users, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-
-const API_URL = "https://script.google.com/macros/s/AKfycbw3RQHcWn2WxpY5WPFy01Bjp21ntrfPLp1o1NJvNMxSTmg4nujZA4T156FW9KFsSi/exec?sheet=equipe";
+import { supabase } from "@/integrations/supabase/client";
 
 interface RawMember {
   Id: number;
@@ -70,7 +69,6 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
     transition={{ duration: 0.4 }}
     className="group bg-card rounded-xl border border-border overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
   >
-    {/* Photo */}
     <div className="relative aspect-[3/4] overflow-hidden bg-muted">
       {member.photo ? (
         <img
@@ -84,7 +82,6 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
           <User size={64} className="text-navy/20" />
         </div>
       )}
-      {/* Qualification badge */}
       <div className="absolute bottom-3 left-3 right-3">
         <span className="inline-block bg-navy/90 text-primary-foreground text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-sm">
           {member.qualification}
@@ -92,17 +89,14 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
       </div>
     </div>
 
-    {/* Info */}
     <div className="p-5">
       <h3 className="font-display text-lg font-semibold text-navy mb-1">
         {member.prenom} {member.nom}
       </h3>
-
       <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-2">
         <MapPin size={13} className="text-sand shrink-0" />
         <span>{member.code_postal} {member.ville}</span>
       </div>
-
       {member.telephone && (
         <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-4">
           <Phone size={13} className="text-sand shrink-0" />
@@ -111,7 +105,6 @@ const MemberCard = ({ member }: { member: TeamMember }) => (
           </a>
         </div>
       )}
-
       {member.minisite && (
         <a href={member.minisite} target="_blank" rel="noopener noreferrer" className="block">
           <Button variant="sand" className="w-full gap-2">
@@ -148,10 +141,9 @@ const EquipeFrance = () => {
 
     const fetchMembers = async () => {
       try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error("Erreur de chargement");
-        const data = await res.json();
-        const rawList: RawMember[] = Array.isArray(data) ? data : data.data || [];
+        const { data, error: fnError } = await supabase.functions.invoke("proxy-equipe");
+        if (fnError) throw new Error(fnError.message);
+        const rawList: RawMember[] = Array.isArray(data) ? data : data?.data || [];
         setMembers(rawList.map(mapRawMember));
       } catch (err) {
         setError("Impossible de charger l'équipe. Veuillez réessayer.");
@@ -181,7 +173,6 @@ const EquipeFrance = () => {
 
   return (
     <div className="pt-[70px]">
-      {/* Hero */}
       <section className="bg-navy flex flex-col items-center justify-center text-center px-4" style={{ minHeight: 260 }}>
         <nav className="text-xs text-primary-foreground/40 mb-6">
           <Link to="/" className="hover:text-sand transition-colors">Accueil</Link>
@@ -196,7 +187,6 @@ const EquipeFrance = () => {
         </motion.p>
       </section>
 
-      {/* Filters */}
       <section className="bg-background border-b border-border sticky top-[70px] z-40">
         <div className="container-narrow mx-auto px-4 md:px-8 py-4">
           <div className="relative flex-1">
@@ -211,7 +201,6 @@ const EquipeFrance = () => {
         </div>
       </section>
 
-      {/* Results */}
       <section className="bg-gray-light section-padding">
         <div className="container-narrow mx-auto px-4 md:px-8">
           <div className="flex items-center gap-2 mb-8 text-muted-foreground text-sm">
