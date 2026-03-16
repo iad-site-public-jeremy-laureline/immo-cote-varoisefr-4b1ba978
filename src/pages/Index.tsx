@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useProperties } from "@/hooks/useProperties";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,7 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(price);
 
 const Index = () => {
+  const { properties: dynamicProperties, loading: propertiesLoading } = useProperties();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [nextSlide, setNextSlide] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
@@ -123,7 +125,7 @@ const Index = () => {
     }, 3000);
   };
 
-  const visibleProperties = properties.filter(p => p.status !== "Sous compromis").slice(0, 6);
+  const visibleDynamic = dynamicProperties.slice(0, 6);
 
   return (
     <div>
@@ -307,57 +309,64 @@ const Index = () => {
             </h2>
             <p className="text-muted-foreground mt-3 font-body">Découvrez notre sélection de biens disponibles</p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {visibleProperties.map((property, i) => (
-              <motion.div
-                key={property.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-              >
-                <a
-                  href={property.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/40"
+          {propertiesLoading ? (
+            <div className="flex justify-center py-16">
+              <div className="w-10 h-10 rounded-full border-4 border-muted border-t-sand animate-spin" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {visibleDynamic.map((property, i) => (
+                <motion.div
+                  key={property.reference || i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
                 >
-                  {/* Image placeholder */}
-                  <div className="relative aspect-[4/3] bg-muted overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center bg-navy/10">
-                      <Home size={48} className="text-navy/20" />
+                  <a
+                    href={property.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/40"
+                  >
+                    <div className="relative aspect-[4/3] bg-muted overflow-hidden">
+                      {property.photo ? (
+                        <img
+                          src={property.photo}
+                          alt={property.titre}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center bg-navy/10">
+                          <Home size={48} className="text-navy/20" />
+                        </div>
+                      )}
                     </div>
-                    {property.status && (
-                      <span className={`absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full ${
-                        property.status === "Nouveau" ? "bg-sand text-navy" :
-                        property.status === "Exclusivité" ? "bg-navy text-primary-foreground" :
-                        "bg-muted text-foreground"
-                      }`}>
-                        {property.status}
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-display text-xl font-bold text-navy">{formatPrice(property.price)}</span>
+                    <div className="p-5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-display text-xl font-bold text-navy">
+                          {property.prix ? formatPrice(property.prix) : "Prix sur demande"}
+                        </span>
+                      </div>
+                      <h3 className="font-body font-semibold text-foreground text-sm mb-1">{property.titre}</h3>
+                      <p className="text-muted-foreground text-sm flex items-center gap-1">
+                        <MapPin size={13} /> {property.ville}
+                      </p>
+                      <div className="flex items-center gap-3 mt-3 text-xs text-muted-foreground">
+                        {property.surface && <span>{property.surface} m²</span>}
+                        {property.pieces && <span>· {property.pieces} pièces</span>}
+                        {property.chambres && <span>· {property.chambres} ch.</span>}
+                      </div>
+                      <div className="mt-4 text-sand font-medium text-sm group-hover:translate-x-1 transition-transform">
+                        Voir le bien →
+                      </div>
                     </div>
-                    <h3 className="font-body font-semibold text-foreground text-sm mb-1">{property.label}</h3>
-                    <p className="text-muted-foreground text-sm flex items-center gap-1">
-                      <MapPin size={13} /> {property.city}
-                    </p>
-                    <div className="flex items-center gap-3 mt-3 text-xs text-muted-foreground">
-                      <span>{property.surface}</span>
-                      {property.rooms && <span>· {property.rooms} pièces</span>}
-                      {property.terrain && <span>· Terrain {property.terrain}</span>}
-                    </div>
-                    <div className="mt-4 text-sand font-medium text-sm group-hover:translate-x-1 transition-transform">
-                      Voir le bien →
-                    </div>
-                  </div>
-                </a>
-              </motion.div>
-            ))}
-          </div>
+                  </a>
+                </motion.div>
+              ))}
+            </div>
+          )}
           <div className="text-center mt-10">
             <Link to="/nos-biens">
               <Button variant="navy-outline" size="lg" className="rounded-full px-8">
