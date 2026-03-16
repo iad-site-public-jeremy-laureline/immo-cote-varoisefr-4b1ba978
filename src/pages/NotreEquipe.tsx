@@ -77,7 +77,7 @@ const NotreEquipe = () => {
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
                 <p className="flex items-center gap-2"><MapPin size={14} className="text-sand" /> Six-Fours-les-Plages (83140)</p>
                 <p className="flex items-center gap-2"><Globe size={14} className="text-sand" /> Parle : Français</p>
-                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Melun n°797 411 832</p>
+                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Toulon n°797 411 832</p>
               </div>
 
               <Link to="/contact">
