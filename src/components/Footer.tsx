@@ -78,7 +78,7 @@ const Footer = () => {
                 <Phone size={16} className="text-sand" /> <a href="tel:+33637339857" className="hover:text-sand transition-colors">Laureline : 06 37 33 98 57</a>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/70">
-                <Mail size={16} className="text-sand" /> <a href="mailto:contact@immobilier-var.fr" className="hover:text-sand transition-colors">contact@immobilier-var.fr</a>
+                <Mail size={16} className="text-sand" /> <a href="mailto:contact@immobilier-cote-varoise.fr" className="hover:text-sand transition-colors">contact@immobilier-cote-varoise.fr</a>
               </li>
               <li className="flex items-center gap-2 text-primary-foreground/70">
                 <MapPin size={16} className="text-sand" />
