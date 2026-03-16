@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-
-const SHEET_API_URL =
-  "https://script.google.com/macros/s/AKfycbw3RQHcWn2WxpY5WPFy01Bjp21ntrfPLp1o1NJvNMxSTmg4nujZA4T156FW9KFsSi/exec?sheet=biens";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface SheetProperty {
   conseiller: string;
@@ -68,11 +66,11 @@ export function useProperties() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(SHEET_API_URL);
-        if (!res.ok) throw new Error(`Erreur ${res.status}`);
-        const data: RawRow[] = await res.json();
+        const { data, error: fnError } = await supabase.functions.invoke("proxy-biens");
+        if (fnError) throw new Error(fnError.message);
+        const rows: RawRow[] = Array.isArray(data) ? data : data?.data || [];
         if (!cancelled) {
-          setProperties(data.map(mapRow).filter((p) => p.titre || p.url));
+          setProperties(rows.map(mapRow).filter((p) => p.titre || p.url));
         }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : "Erreur inconnue");
