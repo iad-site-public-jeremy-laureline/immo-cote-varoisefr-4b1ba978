@@ -607,8 +607,8 @@ const Index = () => {
                 <div key={item.title} className="flex items-start gap-4">
                   <span className="text-2xl">{item.emoji}</span>
                   <div>
-                    <h4 className="font-semibold text-navy text-sm">{item.title}</h4>
-                    <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    <h4 className="font-semibold text-navy text-base">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
                   </div>
                 </div>
               ))}
