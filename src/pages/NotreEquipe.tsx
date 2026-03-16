@@ -147,7 +147,7 @@ const NotreEquipe = () => {
                   <Globe size={14} className="text-sand" /> Parle : Français ·{" "}
                   <span className="bg-sand/20 text-navy px-2 py-0.5 rounded text-xs font-medium">Anglais</span>
                 </p>
-                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Melun n°819 657 271</p>
+                <p className="flex items-center gap-2"><FileText size={14} className="text-sand" /> RSAC Toulon n°819 657 271</p>
               </div>
 
               <Link to="/contact">
