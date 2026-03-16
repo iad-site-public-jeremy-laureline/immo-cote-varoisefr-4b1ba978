@@ -32,6 +32,7 @@ interface TeamMember {
   telephone: string;
   niveau: string;
   qualification: string;
+  secteur: string;
   code_postal: string;
   ville: string;
   date_activation: string;
