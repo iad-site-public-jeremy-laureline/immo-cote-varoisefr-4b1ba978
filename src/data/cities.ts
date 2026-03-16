@@ -1,3 +1,10 @@
+import laSeyneBalaguierAerien from "@/assets/cities/la-seyne/balaguier-aerien.jpg";
+import laSeyneTour from "@/assets/cities/la-seyne/tour-balaguier.jpg";
+import laSeynePort from "@/assets/cities/la-seyne/port-seyne.jpg";
+import laSeynePortColore from "@/assets/cities/la-seyne/port-coloré.jpg";
+import laSeyneCentreVille from "@/assets/cities/la-seyne/centre-ville.jpg";
+import laSeynePlage from "@/assets/cities/la-seyne/plage-sablettes.jpg";
+
 export interface PriceSector {
   name: string;
   description: string;
