@@ -40,7 +40,7 @@ const Contact = () => {
                 {[
                   { icon: Phone, label: "Téléphone Jérémy", value: "06 31 46 45 38", href: "tel:+33631464538" },
                   { icon: Phone, label: "Téléphone Laureline", value: "06 37 33 98 57", href: "tel:+33637339857" },
-                  { icon: Mail, label: "Email", value: "contact@immobilier-var.fr", href: "mailto:contact@immobilier-var.fr" },
+                  { icon: Mail, label: "Email", value: "contact@immobilier-cote-varoise.fr", href: "mailto:contact@immobilier-cote-varoise.fr" },
                   { icon: MapPin, label: "Secteur", value: "De Saint-Cyr-sur-Mer à Carqueiranne" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-4">
