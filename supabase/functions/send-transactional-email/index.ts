@@ -99,7 +99,7 @@ Deno.serve(async (req) => {
       })
     }
 
-    let rendered: { subject: string; html: string }
+    let rendered: { subject: string; html: string; text: string }
     if (template === 'contact') {
       rendered = renderContactEmail(data)
     } else if (template === 'estimation') {
