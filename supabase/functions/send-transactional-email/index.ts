@@ -117,13 +117,19 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
     const unsubscribeToken = crypto.randomUUID()
 
-    const { error: tokenError } = await supabase.from('email_unsubscribe_tokens').insert({
-      email: recipient,
-      token: unsubscribeToken,
-    })
+    const { error: tokenError } = await supabase.from('email_unsubscribe_tokens').upsert(
+      {
+        email: recipient,
+        token: unsubscribeToken,
+        used_at: null,
+      },
+      {
+        onConflict: 'email',
+      }
+    )
 
     if (tokenError) {
-      console.error('Token insert error:', tokenError)
+      console.error('Token upsert error:', tokenError)
       throw new Error(`Failed to create unsubscribe token: ${tokenError.message}`)
     }
 
