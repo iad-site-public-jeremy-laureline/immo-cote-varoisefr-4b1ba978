@@ -40,7 +40,7 @@ function renderContactEmail(data: Record<string, string>): { subject: string; ht
   return { subject, html, text }
 }
 
-function renderEstimationEmail(data: Record<string, string>): { subject: string; html: string } {
+function renderEstimationEmail(data: Record<string, string>): { subject: string; html: string; text: string } {
   const typeLabels: Record<string, string> = {
     appartement: 'Appartement', maison: 'Maison', villa: 'Villa', terrain: 'Terrain', local: 'Local commercial',
   }
