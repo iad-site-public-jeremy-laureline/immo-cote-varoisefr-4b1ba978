@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EstimationFormProps {
   variant?: "inline" | "full";
@@ -16,11 +17,24 @@ const EstimationForm = ({ variant = "inline" }: EstimationFormProps) => {
     ville: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Votre demande d'estimation a bien été envoyée ! Nous vous recontactons sous 24h.");
-    setFormData({ prenom: "", nom: "", telephone: "", email: "", typeBien: "", ville: "", message: "" });
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-transactional-email", {
+        body: { template: "estimation", data: formData },
+      });
+      if (error) throw error;
+      toast.success("Votre demande d'estimation a bien été envoyée ! Nous vous recontactons sous 24h.");
+      setFormData({ prenom: "", nom: "", telephone: "", email: "", typeBien: "", ville: "", message: "" });
+    } catch (err) {
+      console.error("Erreur envoi email:", err);
+      toast.error("Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
