@@ -48,7 +48,8 @@ function renderEstimationEmail(data: Record<string, string>): { subject: string;
     'six-fours': 'Six-Fours-les-Plages', sanary: 'Sanary-sur-Mer', bandol: 'Bandol',
     toulon: 'Toulon', 'la-seyne': 'La Seyne-sur-Mer', ollioules: 'Ollioules',
   }
-  const subject = `Nouvelle demande d'estimation — ${escapeHtml(data.prenom)} ${escapeHtml(data.nom)}`
+  const subject = `Nouvelle demande d'estimation — ${data.prenom} ${data.nom}`
+  const text = `Nouvelle demande d'estimation\n\nPrénom: ${data.prenom}\nNom: ${data.nom}\nTéléphone: ${data.telephone}\nEmail: ${data.email}\nType: ${typeLabels[data.typeBien] || data.typeBien}\nVille: ${villeLabels[data.ville] || data.ville}${data.message ? `\n\nMessage:\n${data.message}` : ''}\n\nEnvoyé depuis immobilier-cote-varoise.fr`
   const html = `
 <!DOCTYPE html>
 <html>
