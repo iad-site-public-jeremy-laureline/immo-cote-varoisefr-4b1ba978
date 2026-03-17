@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   useEffect(() => {
@@ -10,11 +11,24 @@ const Contact = () => {
   }, []);
 
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Votre message a bien été envoyé !");
-    setForm({ nom: "", email: "", telephone: "", message: "" });
+    setLoading(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: { template: "contact", data: form },
+      });
+      if (error) throw error;
+      toast.success("Votre message a bien été envoyé !");
+      setForm({ nom: "", email: "", telephone: "", message: "" });
+    } catch (err) {
+      console.error("Erreur envoi email:", err);
+      toast.error("Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass = "w-full px-4 py-3 border border-border rounded-lg text-sm focus:outline-none focus:border-sand focus:ring-2 focus:ring-sand/20 transition-all bg-background text-foreground";
