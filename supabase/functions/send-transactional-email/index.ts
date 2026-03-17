@@ -115,11 +115,21 @@ Deno.serve(async (req) => {
     const recipient = 'contact@immobilier-cote-varoise.fr'
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
+    const unsubscribeToken = crypto.randomUUID()
+
+    const { error: tokenError } = await supabase.from('email_unsubscribe_tokens').insert({
+      email: recipient,
+      token: unsubscribeToken,
+    })
+
+    if (tokenError) {
+      console.error('Token insert error:', tokenError)
+      throw new Error(`Failed to create unsubscribe token: ${tokenError.message}`)
+    }
 
     const { error: enqueueError } = await supabase.rpc('enqueue_email', {
       queue_name: 'transactional_emails',
       payload: {
-        run_id: Deno.env.get('SUPABASE_URL')?.match(/\/\/([^.]+)/)?.[1] || '',
         to: recipient,
         subject: rendered.subject,
         html: rendered.html,
@@ -129,6 +139,8 @@ Deno.serve(async (req) => {
         purpose: 'transactional',
         label: template,
         message_id: messageId,
+        idempotency_key: messageId,
+        unsubscribe_token: unsubscribeToken,
         queued_at: new Date().toISOString(),
       },
     })
