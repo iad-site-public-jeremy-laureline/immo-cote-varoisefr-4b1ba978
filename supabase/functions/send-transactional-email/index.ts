@@ -116,14 +116,14 @@ Deno.serve(async (req) => {
 
     const { error: enqueueError } = await supabase.rpc('enqueue_email', {
       queue_name: 'transactional_emails',
-      message_body: JSON.stringify({
+      payload: {
         to: recipient,
         subject: rendered.subject,
         html: rendered.html,
         from: 'Jérémy & Laureline Immobilier <noreply@notify.immobilier-cote-varoise.fr>',
         message_id: messageId,
         template_name: template,
-      }),
+      },
     })
 
     if (enqueueError) {
