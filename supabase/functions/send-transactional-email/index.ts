@@ -74,7 +74,7 @@ function renderEstimationEmail(data: Record<string, string>): { subject: string;
   </div>
 </body>
 </html>`
-  return { subject, html }
+  return { subject, html, text }
 }
 
 Deno.serve(async (req) => {
