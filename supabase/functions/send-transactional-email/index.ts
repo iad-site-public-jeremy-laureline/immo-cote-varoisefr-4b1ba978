@@ -14,8 +14,9 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;')
 }
 
-function renderContactEmail(data: Record<string, string>): { subject: string; html: string } {
+function renderContactEmail(data: Record<string, string>): { subject: string; html: string; text: string } {
   const subject = `Nouveau message de ${data.nom} — Site immobilier-cote-varoise.fr`
+  const text = `Nouveau message de contact\n\nNom: ${data.nom}\nEmail: ${data.email}${data.telephone ? `\nTéléphone: ${data.telephone}` : ''}\n\nMessage:\n${data.message}\n\nEnvoyé depuis immobilier-cote-varoise.fr`
   const html = `
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@ function renderContactEmail(data: Record<string, string>): { subject: string; ht
   </div>
 </body>
 </html>`
-  return { subject, html }
+  return { subject, html, text }
 }
 
 function renderEstimationEmail(data: Record<string, string>): { subject: string; html: string } {
