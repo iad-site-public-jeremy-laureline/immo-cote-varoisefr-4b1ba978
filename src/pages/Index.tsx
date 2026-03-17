@@ -416,9 +416,9 @@ const Index = () => {
           </div>
 
           {/* Team cards */}
-          <div className="grid md:grid-cols-2 gap-8 mt-14 max-w-3xl mx-auto">
-            <Link to="/notre-equipe">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl p-7 shadow-card text-center border border-border/30 hover:shadow-card-hover hover:border-sand/30 transition-all cursor-pointer">
+          <div className="grid md:grid-cols-2 gap-8 mt-14 max-w-3xl mx-auto items-stretch">
+            <Link to="/notre-equipe" className="flex">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl p-7 shadow-card text-center border border-border/30 hover:shadow-card-hover hover:border-sand/30 transition-all cursor-pointer flex flex-col justify-center w-full">
                 <img src={jeremyImg} alt="Jérémy Vieira — Conseiller immobilier indépendant" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top ring-2 ring-sand/30" />
                 <h3 className="font-display text-xl font-semibold text-navy">Jérémy Vieira</h3>
                 <p className="text-sm text-muted-foreground mt-1">Conseiller immobilier indépendant</p>
@@ -430,8 +430,8 @@ const Index = () => {
                 </div>
               </motion.div>
             </Link>
-            <Link to="/notre-equipe">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-card rounded-2xl p-7 shadow-card text-center border border-border/30 hover:shadow-card-hover hover:border-sand/30 transition-all cursor-pointer">
+            <Link to="/notre-equipe" className="flex">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-card rounded-2xl p-7 shadow-card text-center border border-border/30 hover:shadow-card-hover hover:border-sand/30 transition-all cursor-pointer flex flex-col justify-center w-full">
                 <img src={laurelineImg} alt="Laureline Lohéac — Conseillère immobilière indépendante" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-top ring-2 ring-sand/30" />
                 <h3 className="font-display text-xl font-semibold text-navy">Laureline Lohéac</h3>
                 <p className="text-sm text-muted-foreground mt-1">Conseillère immobilière indépendante</p>
