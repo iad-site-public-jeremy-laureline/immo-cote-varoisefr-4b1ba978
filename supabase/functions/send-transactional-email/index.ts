@@ -123,6 +123,7 @@ Deno.serve(async (req) => {
         to: recipient,
         subject: rendered.subject,
         html: rendered.html,
+        text: rendered.text,
         from: 'Jérémy & Laureline Immobilier <noreply@notify.immobilier-cote-varoise.fr>',
         sender_domain: 'notify.immobilier-cote-varoise.fr',
         purpose: 'transactional',
