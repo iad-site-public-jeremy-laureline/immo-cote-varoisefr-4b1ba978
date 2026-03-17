@@ -113,19 +113,12 @@ Deno.serve(async (req) => {
 
     const messageId = `${template}-${crypto.randomUUID()}`
     const recipient = 'contact@immobilier-cote-varoise.fr'
-    const projectRef = supabaseUrl.match(/\/\/([^.]+)/)?.[1]
-    const runId = projectRef ? `sandbox_exec_${projectRef}` : null
-
-    if (!runId) {
-      throw new Error('Missing project run identifier')
-    }
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
     const { error: enqueueError } = await supabase.rpc('enqueue_email', {
       queue_name: 'transactional_emails',
       payload: {
-        run_id: runId,
         to: recipient,
         subject: rendered.subject,
         html: rendered.html,
@@ -135,6 +128,7 @@ Deno.serve(async (req) => {
         purpose: 'transactional',
         label: template,
         message_id: messageId,
+        idempotency_key: messageId,
         queued_at: new Date().toISOString(),
       },
     })
