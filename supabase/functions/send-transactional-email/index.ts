@@ -117,6 +117,7 @@ Deno.serve(async (req) => {
     const { error: enqueueError } = await supabase.rpc('enqueue_email', {
       queue_name: 'transactional_emails',
       payload: {
+        run_id: Deno.env.get('SUPABASE_URL')?.match(/\/\/([^.]+)/)?.[1] || '',
         to: recipient,
         subject: rendered.subject,
         html: rendered.html,
