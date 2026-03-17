@@ -81,8 +81,8 @@ const Contact = () => {
               <input name="email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required className={inputClass} placeholder="Votre email" />
               <input name="telephone" type="tel" value={form.telephone} onChange={e => setForm({ ...form, telephone: e.target.value })} className={inputClass} placeholder="Votre téléphone" />
               <textarea name="message" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required rows={5} className={inputClass} placeholder="Votre message..." />
-              <Button type="submit" variant="sand" size="lg" className="w-full">
-                Envoyer le message
+              <Button type="submit" variant="sand" size="lg" className="w-full" disabled={loading}>
+                {loading ? "Envoi en cours…" : "Envoyer le message"}
               </Button>
             </form>
           </div>

@@ -91,8 +91,8 @@ const EstimationForm = ({ variant = "inline" }: EstimationFormProps) => {
         <label className={labelClass}>Message (optionnel)</label>
         <textarea name="message" value={formData.message} onChange={handleChange} rows={3} className={inputClass} placeholder="Précisez votre projet..." />
       </div>
-      <Button type="submit" variant="sand" size="lg" className="w-full text-base py-4">
-        Estimer mon bien gratuitement →
+      <Button type="submit" variant="sand" size="lg" className="w-full text-base py-4" disabled={loading}>
+        {loading ? "Envoi en cours…" : "Estimer mon bien gratuitement →"}
       </Button>
       <p className="text-xs text-muted-foreground text-center">
         Vos données sont protégées — aucun engagement
