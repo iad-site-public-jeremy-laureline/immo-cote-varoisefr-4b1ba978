@@ -121,8 +121,11 @@ Deno.serve(async (req) => {
         subject: rendered.subject,
         html: rendered.html,
         from: 'Jérémy & Laureline Immobilier <noreply@notify.immobilier-cote-varoise.fr>',
+        sender_domain: 'notify.immobilier-cote-varoise.fr',
+        purpose: 'transactional',
+        label: template,
         message_id: messageId,
-        template_name: template,
+        queued_at: new Date().toISOString(),
       },
     })
 
